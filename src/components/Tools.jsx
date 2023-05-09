@@ -1,4 +1,4 @@
-import { Box, Button, Card, Grid, Stack, Typography } from '@mui/material'
+import { Box, Button, Grid, Stack, Typography } from '@mui/material'
 import React from 'react'
 import TrimVideo from './TrimVideo'
 import devider from '../assets/line2.svg';
