@@ -11,6 +11,7 @@ import Footer from './components/Footer';
 import Info from './components/Info';
 import Tools from './components/Tools';
 import TrimVideo from './components/TrimVideo';
+import ToolsHeader from './components/ToolsHeader';
 
   
 const ffmpeg = createFFmpeg({
@@ -44,9 +45,9 @@ function App() {
               <Route path="/about" element={<About/>} />
               <Route path="/contact" element={<Contact/>} />
             </Routes>
+            <ToolsHeader />
             <Tools />
             <About />
-            
           </Router>
         </>
       ) : (

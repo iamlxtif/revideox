@@ -17,6 +17,7 @@ const Home = () => {
         height: '100%',
         paddingBottom: 5,
         position: 'relative',
+        paddingBottom: '5rem'
       }}>
         <Grid container spacing={10} sx={{
           justifyContent: "center",

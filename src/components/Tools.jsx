@@ -1,34 +1,22 @@
 import { Box, Button, Grid, Stack, Typography } from '@mui/material'
 import React from 'react'
+import { Link } from "react-router-dom";
 import TrimVideo from './TrimVideo'
-import devider from '../assets/line2.svg';
+import icon from '../assets/icons/trim.png'
+import { useState } from 'react';
+
+
+
 
 const Tools = () => {
+    const [showTrimVideo, setShowTrimVideo] = useState(false);
+
+  const handleButtonClick = () => {
+    setShowTrimVideo(!showTrimVideo);
+  };
 
     return (
         <>
-            <Box
-                sx={{
-                    width: '70vw',
-                    diplay: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    margin: {xs: '5rem 2rem', sm: '5rem'}
-                }}
-            >
-                <Typography variant='h1' sx={{
-                    fontSize: {xs: '2rem' , sm: "3rem"},
-                    fontWeight: '500',
-                    marginBottom: "0.3rem",
-                    display: "flex",
-                    alignItems: "flex-start",
-                    flexDirection: "column",
-                    color: '#30448c'
-                }}>
-                    RevideoX Tools
-                </Typography>
-                <img src={devider} alt="" style={{ width: '270px' }}/>
-            </Box>
             <Box sx={{
                 display: 'flex',
                 justifyContent: 'center',
@@ -50,7 +38,7 @@ const Tools = () => {
                         }}>Video tools</Typography>
                         <Stack direction='column'>
                         {videoTools.map((videoTool) => (
-                            <Button sx={{
+                            <Button  onClick={handleButtonClick}  sx={{
                                 color: '#30448c',
                                 justifyContent: 'flex-start',
                                 '&:hover':{
@@ -59,8 +47,11 @@ const Tools = () => {
                                     transition: 'all 0.3s ease-in-out',
                                 }
                             }}>
+                                <img style={{width: '30px', padding :'0.5rem'}} src={videoTool.icon}  alt=""/>
                                 {videoTool.name}
+                                
                             </Button>
+                            
                         ))}
                         </Stack>
                     </Grid>
@@ -153,6 +144,7 @@ const Tools = () => {
                     </Grid>
                 </Grid> 
             </Box>
+            {showTrimVideo && <TrimVideo />}
         </>
     )
 }
@@ -161,22 +153,28 @@ const videoTools = [
     {
         key: '1',
         name: 'Trim video',
-        component: <TrimVideo />
+        component: <TrimVideo />,
+        icon:icon,
     },
     {
         key: '2',
         name: 'Merge video',
-        component: <TrimVideo />
+        component: <TrimVideo />,
+        icon:icon,
     },
     {
         key: '3',
         name: 'Rotate video',
-        component: <TrimVideo />
+        component: <TrimVideo />,
+        icon:icon,
+
     },
     {
         key: '4',
         name: 'Compress video',
-        component: <TrimVideo />
+        component: <TrimVideo />,
+        icon:icon,
+
     }
 ]
 
@@ -185,6 +183,7 @@ const audioTools = [
         key: '5',
         name: 'Trim audio',
         component: <TrimVideo />
+
     },
     {
         key: '6',
