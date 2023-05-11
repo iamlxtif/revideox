@@ -1,8 +1,21 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from 'react';
 import { Button, Container, Grid, TextField, Box, Typography } from "@mui/material";
+import { createFFmpeg } from "@ffmpeg/ffmpeg";
+  
 
-
+const ffmpeg = createFFmpeg({ log: true });
 const TrimVideo = () => {
+  
+  const [ready,setReady] = useState (false); 
+  const load = async ()=>{
+    await ffmpeg.load();
+    setReady(true);
+  }
+
+  useEffect (()=>{
+    load();
+  },[]);
+
   const [selectedFile, setSelectedFile] = useState(null);
   const [startPoint, setStartPoint] = useState(null);
   const [duration, setDuration] = useState(null);
