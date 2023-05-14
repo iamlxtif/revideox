@@ -2,18 +2,24 @@ import { Box, Button, Grid, Stack, Typography } from '@mui/material'
 import React from 'react'
 import { Link } from "react-router-dom";
 import TrimVideo from './TrimVideo'
-import icon from '../assets/icons/trim.png'
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import icon from '../assets/Icons/VideoTools/Trim.png';
 
 
 
-
+ 
 const Tools = () => {
+    
+
+    
+  
+  
     const [showTrimVideo, setShowTrimVideo] = useState(false);
 
   const handleButtonClick = () => {
     setShowTrimVideo(!showTrimVideo);
   };
+  
 
     return (
         <>
@@ -160,20 +166,20 @@ const videoTools = [
         key: '2',
         name: 'Merge video',
         component: <TrimVideo />,
-        icon:icon,
+        icon: icon,
     },
     {
         key: '3',
         name: 'Rotate video',
         component: <TrimVideo />,
-        icon:icon,
+        icon: icon ,
 
     },
     {
         key: '4',
         name: 'Compress video',
         component: <TrimVideo />,
-        icon:icon,
+        icon: icon ,
 
     }
 ]
