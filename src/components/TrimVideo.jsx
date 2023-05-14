@@ -5,16 +5,15 @@ import {ffmpeg} from '../App'
 
 
 const TrimVideo = () => {
-  
-  const [ready,setReady] = useState (false); 
-  // const load = async ()=>{
-  //   await ffmpeg.load();
-  //   setReady(true);
-  // }
+  const [ready, setReady] = useState(false);
+  const load = async () => {
+    await ffmpeg.load();
+    setReady(true);
+  };
 
-  // useEffect (()=>{
-  //   load();
-  // },[]);
+  useEffect(() => {
+    load();
+  }, []);
 
   const [selectedFile, setSelectedFile] = useState(null);
   const [startPoint, setStartPoint] = useState(null);
@@ -33,7 +32,6 @@ const TrimVideo = () => {
     setDuration(event.target.value);
   };
 
-  
   const handleTrimVideo = () => {
     // Check if all inputs are selected
     if (!selectedFile || !startPoint || !duration) {
@@ -45,13 +43,16 @@ const TrimVideo = () => {
     reader.readAsArrayBuffer(selectedFile);
 
     reader.onload = async (event) => {
+      const { result } = event.target;
+      const inputFileName = selectedFile.name;
+      const inputFormat = inputFileName.substring(inputFileName.lastIndexOf(".") + 1);
 
-      const inputUrl = event.target.result;
-    
+      ffmpeg.FS("writeFile", "input." + inputFormat, new Uint8Array(result));
+
       // Trim the video
       await ffmpeg.run(
         "-i",
-        inputUrl,
+        "/input." + inputFormat,
         "-ss",
         startPoint.toString(),
         "-t",
@@ -76,6 +77,7 @@ const TrimVideo = () => {
       setDownloadUrl(url);
 
       // Clean up temporary files
+      ffmpeg.FS("unlink", "input." + inputFormat);
       ffmpeg.FS("unlink", "output.mp4");
     };
   };
@@ -85,7 +87,7 @@ const TrimVideo = () => {
     link.href = downloadUrl;
     link.download = "trimmed_video.mp4";
     link.click();
-  }
+  };
 
   return (
     <Container maxWidth="md">
