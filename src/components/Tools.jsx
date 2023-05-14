@@ -43,7 +43,7 @@ const Tools = () => {
                         }}>Video tools</Typography>
                         <Stack direction='column'>
                         {videoTools.map((videoTool) => (
-                            <Button  onClick={handleButtonClick}  sx={{
+                            <Button key={videoTool.key} onClick={handleButtonClick}  sx={{
                                 color: '#30448c',
                                 justifyContent: 'flex-start',
                                 '&:hover':{
@@ -52,7 +52,11 @@ const Tools = () => {
                                     transition: 'all 0.3s ease-in-out',
                                 }
                             }}>
-                                <img style={{width: '30px', padding :'0.5rem'}} src={videoTool.icon}  alt=""/>
+                                <img 
+                                    style={{width: '30px', padding :'0.5rem'}} 
+                                    src={videoTool.icon}
+                                    alt=""
+                                />
                                 {videoTool.name}
                                 
                             </Button>
@@ -75,7 +79,7 @@ const Tools = () => {
                         }}>Audio tools</Typography>
                         <Stack direction='column'>
                         {audioTools.map((audioTool) => (
-                            <Button sx={{
+                            <Button key={audioTool.key} sx={{
                                 color: '#30448c',
                                 justifyContent: 'flex-start',
                                 '&:hover':{
@@ -101,10 +105,10 @@ const Tools = () => {
                             fontWeight: 'bold',
                             textTransform: 'uppercase',
                             marginBottom: '1rem'
-                        }}>Convert from video</Typography>
+                        }}>Convert to video</Typography>
                         <Stack direction='column'>
-                        {convertFromVideoTools.map((convertFromVideoTool) => (
-                            <Button sx={{
+                        {convertToVideoTools.map((convertToVideoTool) => (
+                            <Button key={convertToVideoTool.key} sx={{
                                 color: '#30448c',
                                 justifyContent: 'flex-start',
                                 '&:hover':{
@@ -113,7 +117,7 @@ const Tools = () => {
                                     transition: 'all 0.3s ease-in-out'
                                 }
                             }}>
-                                {convertFromVideoTool.name}
+                                {convertToVideoTool.name}
                             </Button>
                         ))}
                         </Stack>
@@ -130,10 +134,10 @@ const Tools = () => {
                             fontWeight: 'bold',
                             textTransform: 'uppercase',
                             marginBottom: '1rem'
-                        }}>Convert from audio</Typography>
+                        }}>Convert to audio</Typography>
                         <Stack direction='column'>
-                        {convertFromAudioTools.map((convertFromAudioTool) => (
-                            <Button sx={{
+                        {convertToAudioTools.map((convertToAudioTool) => (
+                            <Button key={convertToAudioTool.key} sx={{
                                 color: '#30448c',
                                 justifyContent: 'flex-start',
                                 '&:hover':{
@@ -142,7 +146,7 @@ const Tools = () => {
                                     transition: 'all 0s ease-in-out'
                                 }
                             }}>
-                                {convertFromAudioTool.name}
+                                {convertToAudioTool.name}
                             </Button>
                         ))}
                         </Stack>
@@ -179,7 +183,12 @@ const videoTools = [
         name: 'Compress video',
         component: <TrimVideo />,
         icon: compress ,
-
+    },
+    {
+        key: '5',
+        name: 'Reverse video',
+        component: <TrimVideo />,
+        icon: compress ,
     }
 ]
 
@@ -197,65 +206,75 @@ const audioTools = [
     },
     {
         key: '7',
-        name: 'Add audio to video',
+        name: 'Extract audio from video',
+        component: <TrimVideo />
+    },
+    {
+        key: '7',
+        name: 'Change audio speed',
         component: <TrimVideo />
     }
 ]
 
-const convertFromVideoTools = [
+const convertToVideoTools = [
     {
         key: '8',
-        name: 'Convert MP4 to MOV',
+        name: 'Convert to MP4',
         component: <TrimVideo />
     },
     {
         key: '9',
-        name: 'Convert MP4 to WEBM',
+        name: 'Convert to WEBM',
         component: <TrimVideo />
     },
     {
         key: '10',
-        name: 'Convert MOV to MP4',
+        name: 'Convert to MOV',
         component: <TrimVideo />
     },
     {
         key: '11',
-        name: 'Convert WEBM to MP4',
+        name: 'Convert to AVI',
         component: <TrimVideo />
     },
     {
         key: '12',
-        name: 'Convert MP4 to MP3',
+        name: 'Convert to MKV',
         component: <TrimVideo />
     },
-    {
-        key: '13',
-        name: 'Convert MP4 to GIF',
-        component: <TrimVideo />
-    }
 ]
 
-const convertFromAudioTools = [
+const convertToAudioTools = [
     {
         key: '14',
-        name: 'Convert MP3 to WAV',
+        name: 'Convert to MP3',
         component: <TrimVideo />
     },
     {
         key: '15',
-        name: 'Convert WAV to FLAC',
+        name: 'Convert to WAV',
         component: <TrimVideo />
     },
     {
         key: '16',
-        name: 'Convert M4A to MP3',
+        name: 'Convert to M4A',
         component: <TrimVideo />
     },
     {
         key: '17',
-        name: 'Convert AAC to OGG',
+        name: 'Convert to OGG',
         component: <TrimVideo />
-    }
+    },
+    {
+        key: '18',
+        name: 'Convert to ACC',
+        component: <TrimVideo />
+    },
+    {
+        key: '19',
+        name: 'Convert to FLAC',
+        component: <TrimVideo />
+    },
 ]
 
 export default Tools

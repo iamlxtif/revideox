@@ -82,7 +82,7 @@ const TrimVideo = () => {
   };
 
   return (
-    <Container maxWidth="md">
+    <Container maxWidth="md" >
       <Typography variant="h4" sx={{
         fontWeight: "bold",
         marginBottom: "16px",
