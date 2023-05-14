@@ -11,9 +11,9 @@ import { useState } from 'react';
 const Tools = () => {
     const [showTrimVideo, setShowTrimVideo] = useState(false);
 
-  const handleButtonClick = () => {
+const handleButtonClick = () => {
     setShowTrimVideo(!showTrimVideo);
-  };
+};
 
     return (
         <>

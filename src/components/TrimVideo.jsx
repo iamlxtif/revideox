@@ -1,20 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import { Button, Container, Grid, TextField, Box, Typography } from "@mui/material";
 import { createFFmpeg } from "@ffmpeg/ffmpeg";
-  
+import {ffmpeg} from '../App'
 
-const ffmpeg = createFFmpeg({ log: true });
+
 const TrimVideo = () => {
   
   const [ready,setReady] = useState (false); 
-  const load = async ()=>{
-    await ffmpeg.load();
-    setReady(true);
-  }
+  // const load = async ()=>{
+  //   await ffmpeg.load();
+  //   setReady(true);
+  // }
 
-  useEffect (()=>{
-    load();
-  },[]);
+  // useEffect (()=>{
+  //   load();
+  // },[]);
 
   const [selectedFile, setSelectedFile] = useState(null);
   const [startPoint, setStartPoint] = useState(null);
@@ -46,13 +46,12 @@ const TrimVideo = () => {
 
     reader.onload = async (event) => {
 
-      const { result } = event.target;
-      ffmpeg.FS("writeFile", "input.mp4", new Uint8Array(result));
-
+      const inputUrl = event.target.result;
+    
       // Trim the video
       await ffmpeg.run(
         "-i",
-        "/input.mp4",
+        inputUrl,
         "-ss",
         startPoint.toString(),
         "-t",
@@ -77,7 +76,6 @@ const TrimVideo = () => {
       setDownloadUrl(url);
 
       // Clean up temporary files
-      ffmpeg.FS("unlink", "input.mp4");
       ffmpeg.FS("unlink", "output.mp4");
     };
   };
