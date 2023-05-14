@@ -7,6 +7,10 @@ import trim from '../assets/icons/VideoTools/trim.png';
 import merge from '../assets/icons/VideoTools/merge.png';
 import rotate from '../assets/icons/VideoTools/rotate.png';
 import compress from '../assets/icons/VideoTools/compress.png';
+import convertAUD from '../assets/icons/AudioTools/convert2.png';
+import video from '../assets/icons/VideoTools/video.png';
+import VidAud from '../assets/icons/AudioTools/VidAud.png';
+import audio from '../assets/icons/AudioTools/audio.png';
 
 
 
@@ -36,7 +40,7 @@ const Tools = () => {
                         marginBottom: '4rem'
                     }}>
                         <Typography variant='h8' sx={{
-                            color: '#30448c',
+                            color: '#044cbc',
                             fontWeight: '600',
                             textTransform: 'uppercase',
                             marginBottom: '1rem',
@@ -44,10 +48,10 @@ const Tools = () => {
                         <Stack direction='column'>
                         {videoTools.map((videoTool) => (
                             <Button key={videoTool.key} onClick={handleButtonClick}  sx={{
-                                color: '#30448c',
+                                color: '#044cbc',
                                 justifyContent: 'flex-start',
                                 '&:hover':{
-                                    backgroundColor: '#30448c',
+                                    backgroundColor: '#044cbc',
                                     color: 'white',
                                     transition: 'all 0.3s ease-in-out',
                                 }
@@ -72,7 +76,7 @@ const Tools = () => {
                         marginBottom: '4rem'
                     }}>
                         <Typography variant='h8' sx={{
-                            color: '#30448c',
+                            color: '#044cbc',
                             fontWeight: 'bold',
                             textTransform: 'uppercase',
                             marginBottom: '1rem'
@@ -80,14 +84,19 @@ const Tools = () => {
                         <Stack direction='column'>
                         {audioTools.map((audioTool) => (
                             <Button key={audioTool.key} sx={{
-                                color: '#30448c',
+                                color: '#044cbc',
                                 justifyContent: 'flex-start',
                                 '&:hover':{
-                                    backgroundColor: '#30448c',
+                                    backgroundColor: '#044cbc',
                                     color: 'white',
                                     transition: 'all 0.3s ease-in-out'
                                 }
                             }}>
+                                <img 
+                                    style={{width: '30px', padding :'0.5rem'}} 
+                                    src={audioTool.icon}
+                                    alt=""
+                                />
                                 {audioTool.name}
                             </Button>
                         ))}
@@ -101,7 +110,7 @@ const Tools = () => {
                         marginBottom: '4rem'
                     }}>
                         <Typography variant='h8' sx={{
-                            color: '#30448c',
+                            color: '#044cbc',
                             fontWeight: 'bold',
                             textTransform: 'uppercase',
                             marginBottom: '1rem'
@@ -109,14 +118,19 @@ const Tools = () => {
                         <Stack direction='column'>
                         {convertToVideoTools.map((convertToVideoTool) => (
                             <Button key={convertToVideoTool.key} sx={{
-                                color: '#30448c',
+                                color: '#044cbc',
                                 justifyContent: 'flex-start',
                                 '&:hover':{
-                                    backgroundColor: '#30448c',
+                                    backgroundColor: '#044cbc',
                                     color: 'white',
                                     transition: 'all 0.3s ease-in-out'
                                 }
                             }}>
+                                <img 
+                                    style={{width: '30px', padding :'0.5rem'}} 
+                                    src={convertToVideoTool.icon}
+                                    alt=""
+                                />
                                 {convertToVideoTool.name}
                             </Button>
                         ))}
@@ -130,7 +144,7 @@ const Tools = () => {
                         marginBottom: '4rem'
                     }}>
                         <Typography variant='h8' sx={{
-                            color: '#30448c',
+                            color: '#044cbc',
                             fontWeight: 'bold',
                             textTransform: 'uppercase',
                             marginBottom: '1rem'
@@ -138,14 +152,19 @@ const Tools = () => {
                         <Stack direction='column'>
                         {convertToAudioTools.map((convertToAudioTool) => (
                             <Button key={convertToAudioTool.key} sx={{
-                                color: '#30448c',
+                                color: '#044cbc',
                                 justifyContent: 'flex-start',
                                 '&:hover':{
-                                    backgroundColor: '#30448c',
+                                    backgroundColor: '#044cbc',
                                     color: 'white',
                                     transition: 'all 0s ease-in-out'
                                 }
                             }}>
+                                <img 
+                                    style={{width: '30px', padding :'0.5rem'}} 
+                                    src={convertToAudioTool.icon}
+                                    alt=""
+                                />
                                 {convertToAudioTool.name}
                             </Button>
                         ))}
@@ -188,7 +207,7 @@ const videoTools = [
         key: '5',
         name: 'Reverse video',
         component: <TrimVideo />,
-        icon: compress ,
+        icon: video ,
     }
 ]
 
@@ -196,51 +215,60 @@ const audioTools = [
     {
         key: '5',
         name: 'Trim audio',
-        component: <TrimVideo />
+        component: <TrimVideo />,
+        icon: trim,
 
     },
     {
         key: '6',
         name: 'Merge audio',
-        component: <TrimVideo />
+        component: <TrimVideo />,
+        icon: merge,
     },
     {
         key: '7',
         name: 'Extract audio from video',
-        component: <TrimVideo />
+        component: <TrimVideo />,
+        icon: VidAud,
     },
     {
-        key: '7',
+        key: '8',
         name: 'Change audio speed',
-        component: <TrimVideo />
+        component: <TrimVideo />,
+        icon: audio,
     }
 ]
 
 const convertToVideoTools = [
     {
-        key: '8',
-        name: 'Convert to MP4',
-        component: <TrimVideo />
-    },
-    {
         key: '9',
-        name: 'Convert to WEBM',
-        component: <TrimVideo />
+        name: 'Convert to MP4',
+        component: <TrimVideo />,
+        icon: video,
     },
     {
         key: '10',
-        name: 'Convert to MOV',
-        component: <TrimVideo />
+        name: 'Convert to WEBM',
+        component: <TrimVideo />,
+        icon: video,
     },
     {
         key: '11',
-        name: 'Convert to AVI',
-        component: <TrimVideo />
+        name: 'Convert to MOV',
+        component: <TrimVideo />,
+        icon: video,
     },
     {
         key: '12',
+        name: 'Convert to AVI',
+        component: <TrimVideo />,
+        icon: video,
+    },
+    {
+        key: '13',
         name: 'Convert to MKV',
-        component: <TrimVideo />
+        component: <TrimVideo />,
+        icon: video,
     },
 ]
 
@@ -248,32 +276,38 @@ const convertToAudioTools = [
     {
         key: '14',
         name: 'Convert to MP3',
-        component: <TrimVideo />
+        component: <TrimVideo />,
+        icon: audio,
     },
     {
         key: '15',
         name: 'Convert to WAV',
-        component: <TrimVideo />
+        component: <TrimVideo />,
+        icon: audio,
     },
     {
         key: '16',
         name: 'Convert to M4A',
-        component: <TrimVideo />
+        component: <TrimVideo />,
+        icon: audio,
     },
     {
         key: '17',
         name: 'Convert to OGG',
-        component: <TrimVideo />
+        component: <TrimVideo />,
+        icon: audio,
     },
     {
         key: '18',
         name: 'Convert to ACC',
-        component: <TrimVideo />
+        component: <TrimVideo />,
+        icon: audio,
     },
     {
         key: '19',
         name: 'Convert to FLAC',
-        component: <TrimVideo />
+        component: <TrimVideo />,
+        icon: audio,
     },
 ]
 
