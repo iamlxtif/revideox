@@ -14,7 +14,7 @@ import TrimVideo from './components/TrimVideo';
 import ToolsHeader from './components/ToolsHeader';
 
   
-const ffmpeg = createFFmpeg({
+export const ffmpeg = createFFmpeg({
   log: true,
 });
 
