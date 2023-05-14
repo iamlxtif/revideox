@@ -3,23 +3,22 @@ import React from 'react'
 import { Link } from "react-router-dom";
 import TrimVideo from './TrimVideo'
 import { useState, useEffect } from 'react';
-import icon from '../assets/Icons/VideoTools/Trim.png';
+import trim from '../assets/icons/VideoTools/trim.png';
+import merge from '../assets/icons/VideoTools/merge.png';
+import rotate from '../assets/icons/VideoTools/rotate.png';
+import compress from '../assets/icons/VideoTools/compress.png';
 
 
 
- 
+
 const Tools = () => {
     
 
-    
-  
-  
     const [showTrimVideo, setShowTrimVideo] = useState(false);
 
-  const handleButtonClick = () => {
+    const handleButtonClick = () => {
     setShowTrimVideo(!showTrimVideo);
-  };
-  
+    };
 
     return (
         <>
@@ -160,26 +159,26 @@ const videoTools = [
         key: '1',
         name: 'Trim video',
         component: <TrimVideo />,
-        icon:icon,
+        icon: trim,
     },
     {
         key: '2',
         name: 'Merge video',
         component: <TrimVideo />,
-        icon: icon,
+        icon: merge,
     },
     {
         key: '3',
         name: 'Rotate video',
         component: <TrimVideo />,
-        icon: icon ,
+        icon: rotate ,
 
     },
     {
         key: '4',
         name: 'Compress video',
         component: <TrimVideo />,
-        icon: icon ,
+        icon: compress ,
 
     }
 ]

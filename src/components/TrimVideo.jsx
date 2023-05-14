@@ -5,15 +5,7 @@ import {ffmpeg} from '../App'
 
 
 const TrimVideo = () => {
-  const [ready, setReady] = useState(false);
-  const load = async () => {
-    await ffmpeg.load();
-    setReady(true);
-  };
 
-  useEffect(() => {
-    load();
-  }, []);
 
   const [selectedFile, setSelectedFile] = useState(null);
   const [startPoint, setStartPoint] = useState(null);
@@ -67,18 +59,18 @@ const TrimVideo = () => {
         "384k",
         "-b:v",
         "1000k",
-        "output.mp4"
+        "output." + inputFormat,
       );
 
       // Get the trimmed video as a Blob and create a download link for it
-      const data = ffmpeg.FS("readFile", "output.mp4");
-      const blob = new Blob([data.buffer], { type: "video/mp4" });
+      const data = ffmpeg.FS("readFile", "output." + inputFormat);
+      const blob = new Blob([data.buffer], { type: "video" });
       const url = URL.createObjectURL(blob);
       setDownloadUrl(url);
 
       // Clean up temporary files
       ffmpeg.FS("unlink", "input." + inputFormat);
-      ffmpeg.FS("unlink", "output.mp4");
+      ffmpeg.FS("unlink", "output." + inputFormat);
     };
   };
 
