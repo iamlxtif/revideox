@@ -44,6 +44,7 @@ const Tools = () => {
                             fontWeight: '600',
                             textTransform: 'uppercase',
                             marginBottom: '1rem',
+                            marginLeft: '0.5rem',
                         }}>Video tools</Typography>
                         <Stack direction='column'>
                         {videoTools.map((videoTool) => (
@@ -57,7 +58,7 @@ const Tools = () => {
                                 }
                             }}>
                                 <img 
-                                    style={{width: '30px', padding :'0.5rem'}} 
+                                    style={{width: '25px', padding :'0.5rem', paddingLeft: '0'}} 
                                     src={videoTool.icon}
                                     alt=""
                                 />
@@ -79,7 +80,8 @@ const Tools = () => {
                             color: '#044cbc',
                             fontWeight: 'bold',
                             textTransform: 'uppercase',
-                            marginBottom: '1rem'
+                            marginBottom: '1rem',
+                            marginLeft: '0.5rem',
                         }}>Audio tools</Typography>
                         <Stack direction='column'>
                         {audioTools.map((audioTool) => (
@@ -93,7 +95,7 @@ const Tools = () => {
                                 }
                             }}>
                                 <img 
-                                    style={{width: '30px', padding :'0.5rem'}} 
+                                    style={{width: '25px', padding :'0.5rem', paddingLeft: '0',}} 
                                     src={audioTool.icon}
                                     alt=""
                                 />
@@ -113,7 +115,8 @@ const Tools = () => {
                             color: '#044cbc',
                             fontWeight: 'bold',
                             textTransform: 'uppercase',
-                            marginBottom: '1rem'
+                            marginBottom: '1rem',
+                            marginLeft: '0.5rem',
                         }}>Convert to video</Typography>
                         <Stack direction='column'>
                         {convertToVideoTools.map((convertToVideoTool) => (
@@ -127,7 +130,7 @@ const Tools = () => {
                                 }
                             }}>
                                 <img 
-                                    style={{width: '30px', padding :'0.5rem'}} 
+                                    style={{width: '25px', padding :'0.5rem', paddingLeft: '0',}} 
                                     src={convertToVideoTool.icon}
                                     alt=""
                                 />
@@ -147,7 +150,8 @@ const Tools = () => {
                             color: '#044cbc',
                             fontWeight: 'bold',
                             textTransform: 'uppercase',
-                            marginBottom: '1rem'
+                            marginBottom: '1rem',
+                            marginLeft: '0.5rem',
                         }}>Convert to audio</Typography>
                         <Stack direction='column'>
                         {convertToAudioTools.map((convertToAudioTool) => (
@@ -161,7 +165,7 @@ const Tools = () => {
                                 }
                             }}>
                                 <img 
-                                    style={{width: '30px', padding :'0.5rem'}} 
+                                    style={{width: '25px', padding :'0.5rem' }} 
                                     src={convertToAudioTool.icon}
                                     alt=""
                                 />
