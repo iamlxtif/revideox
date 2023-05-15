@@ -41,7 +41,7 @@ const Tools = () => {
                     }}>
                         <Typography variant='h8' sx={{
                             color: '#044cbc',
-                            fontWeight: '600',
+                            fontWeight: 'bold',
                             textTransform: 'uppercase',
                             marginBottom: '1rem',
                             marginLeft: '0.5rem',
@@ -52,6 +52,7 @@ const Tools = () => {
                             <Button key={videoTool.key} onClick={handleButtonClick}  sx={{
                                 color: '#044cbc',
                                 justifyContent: 'flex-start',
+                                fontSize: '0.9rem',
                                 '&:hover':{
                                     backgroundColor: '#044cbc',
                                     color: 'white',
@@ -90,6 +91,7 @@ const Tools = () => {
                             <Button key={audioTool.key} sx={{
                                 color: '#044cbc',
                                 justifyContent: 'flex-start',
+                                fontSize: '0.9rem',
                                 '&:hover':{
                                     backgroundColor: '#044cbc',
                                     color: 'white',
@@ -126,6 +128,7 @@ const Tools = () => {
                             <Button key={convertToVideoTool.key} sx={{
                                 color: '#044cbc',
                                 justifyContent: 'flex-start',
+                                fontSize: '0.9rem',
                                 '&:hover':{
                                     backgroundColor: '#044cbc',
                                     color: 'white',
@@ -162,6 +165,7 @@ const Tools = () => {
                             <Button key={convertToAudioTool.key} sx={{
                                 color: '#044cbc',
                                 justifyContent: 'flex-start',
+                                fontSize: '0.9rem',
                                 '&:hover':{
                                     backgroundColor: '#044cbc',
                                     color: 'white',
