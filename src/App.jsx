@@ -7,11 +7,9 @@ import Home from './components/Home';
 import Navbar from './components/Navbar';
 import About from './components/About'
 import Contact from './components/Contact'
-import Footer from './components/Footer';
-import Info from './components/Info';
-import Tools from './components/Tools';
 import Trim from './components/Trim';
-import ToolsHeader from './components/ToolsHeader';
+import Merge from './components/Merge';
+
 
   
 export const ffmpeg = createFFmpeg({
@@ -46,6 +44,8 @@ function App() {
               <Route path="/contact" element={<Contact/>} />
               <Route path='/trimVideo' element={<Trim fileType='video'/>} />
               <Route path='/trimAudio' element={<Trim fileType='audio'/>} />
+              <Route path='/mergeVideo' element={<Merge fileType='video'/>} />
+              <Route path='/mergeAudio' element={<Merge fileType='audio'/>} />
             </Routes>
           </Router>
         </>

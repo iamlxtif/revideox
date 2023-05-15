@@ -119,7 +119,8 @@ const Tools = () => {
                         }}>Convert to video</Typography>
                         <Stack direction='column'>
                         {convertToVideoTools.map((convertToVideoTool) => (
-                            <Button key={convertToVideoTool.key} sx={{
+                            <Button  key={convertToVideoTool.key} component={Link} to={convertToVideoTool.path}
+                            sx={{
                                 color: '#044cbc',
                                 justifyContent: 'flex-start',
                                 fontSize: '0.9rem',
@@ -156,7 +157,7 @@ const Tools = () => {
                         }}>Convert to audio</Typography>
                         <Stack direction='column'>
                         {convertToAudioTools.map((convertToAudioTool) => (
-                            <Button key={convertToAudioTool.key} sx={{
+                            <Button key={convertToAudioTool.key} component={Link} to={convertToAudioTool.path} sx={{
                                 color: '#044cbc',
                                 justifyContent: 'flex-start',
                                 fontSize: '0.9rem',
@@ -192,7 +193,7 @@ const videoTools = [
     {
         key: '2',
         name: 'Merge video',
-        path: '/trim',
+        path: '/mergeVideo',
         icon: merge,
     },
     {
@@ -227,7 +228,7 @@ const audioTools = [
     {
         key: '6',
         name: 'Merge audio',
-        path: '/trim',
+        path: '/mergeAudio',
         icon: merge,
     },
     {

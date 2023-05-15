@@ -1,71 +1,72 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button, Container, Grid, TextField, Box, Typography } from "@mui/material";
 import {ffmpeg} from '../App'
 
 
-const Trim = (props) => {
+const Merge = (props) => {
   const { fileType } = props;
   
-  const [selectedFile, setSelectedFile] = useState(null);
+  const [selectedFiles, setSelectedFiles] = useState([]);
   const [startPoint, setStartPoint] = useState(null);
   const [duration, setDuration] = useState(null);
   const [downloadUrl, setDownloadUrl] = useState(null);
 
+  
+  let inputFormat = "";
   const handleFileChange = (event) => {
-    setSelectedFile(event.target.files[0]);
-  };
-
-  const handleStartPointChange = (event) => {
-    setStartPoint(event.target.value);
-  };
-
-  const handleDurationChange = (event) => {
-    setDuration(event.target.value);
-  };
-
-  const handleTrimVideo = () => {
-    // Check if all inputs are selected
-    if (!selectedFile || !startPoint || !duration) {
+    const files = Array.from(event.target.files);
+    if (files.length < 2) {
+      alert("You have to upload 2 files at least to merge them");
       return;
     }
+    setSelectedFiles(prevFiles => [...prevFiles, ...files]);
+  };
+  
+  useEffect(() => {
+    console.log(selectedFiles.length);
+    console.log(selectedFiles);
+  }, [selectedFiles]);
+  
 
-    // Convert the selected file into an ArrayBuffer
-    const reader = new FileReader();
-    reader.readAsArrayBuffer(selectedFile);
-
-    reader.onload = async (event) => {
-      const { result } = event.target;
+  const handleMerge = async () => {
+    let inputFormat = "";
+    for (const selectedFile of selectedFiles) {
+      const reader = new FileReader();
+      reader.readAsArrayBuffer(selectedFile);
+  
+      reader.onload = async (event) => {
+        const { result } = event.target;
+        const inputFileName = selectedFile.name;
+        inputFormat = inputFileName.substring(inputFileName.lastIndexOf(".") + 1);
+  
+        ffmpeg.FS("writeFile", "input." + inputFormat, new Uint8Array(result));
+      };
+  
+      await new Promise((resolve) => {
+        reader.onloadend = resolve;
+      });
+    }
+  
+    const mergeCommands = selectedFiles.map((selectedFile, index) => {
       const inputFileName = selectedFile.name;
-      let inputFormat = inputFileName.substring(inputFileName.lastIndexOf(".") + 1);
-
-      ffmpeg.FS("writeFile", "input." + inputFormat, new Uint8Array(result));
-
-      if(fileType == 'video'){
-        // Trim the video
-        await ffmpeg.run(
-          "-i",
-          "input." + inputFormat,
-          "-ss",
-          startPoint.toString(),
-          "-t",
-          duration.toString(),
-          "output." + inputFormat,
-        );
-      } else {
-        await ffmpeg.run(
-          '-i',
-          'input.' + inputFormat,
-          '-ss',
-          startPoint.toString(),
-          '-t',
-          duration.toString(),
-          '-c',
-          'copy',
-          'output.' + inputFormat
-        )
-      }
-
-      // Get the trimmed video as a Blob and create a download link for it
+      inputFormat = inputFileName.substring(inputFileName.lastIndexOf(".") + 1);
+      return `-i input.${inputFormat}`;
+    });
+  
+    const mergeOutput = mergeCommands.join(" ");
+    await ffmpeg.run(
+      mergeOutput,
+      "-filter_complex",
+      "concat=n=" + selectedFiles.length + ":v=1:a=1",
+      "-c:v",
+      "copy",
+      "-c:a",
+      "copy",
+      "output." + inputFormat
+    );
+  
+  
+    // Clean up temporary files
       const data = ffmpeg.FS("readFile", "output." + inputFormat);
       let blob = undefined;
       if(fileType == 'video') {blob = new Blob([data.buffer], { type: "video" });}
@@ -76,14 +77,14 @@ const Trim = (props) => {
       // Clean up temporary files
       ffmpeg.FS("unlink", "input." + inputFormat);
       ffmpeg.FS("unlink", "output." + inputFormat);
-    };
   };
+  
 
   const handleDownload = () => {
     const link = document.createElement("a");
     link.href = downloadUrl;
-    if(fileType == 'video') {link.download = "trimmed.mp4";}
-    else {link.download = "trimmed.mp3";}
+    if(fileType == 'video') {link.download = "Merged.mp4";}
+    else {link.download = "Merged.mp3";}
     link.click();
   };
 
@@ -95,50 +96,38 @@ const Trim = (props) => {
         color: "#30448c"
       }}
       >
-        Trimming
+        Merge
       </Typography>
       <Grid container spacing={2}>
         <Grid item md={6} sm={12} xs={12}>
           <Grid container spacing={2}>
             <Grid item xs={12}>
-              <TextField type="file" onChange={handleFileChange} />
+              <TextField type="file" inputProps={{ multiple: true }} onChange={handleFileChange} />
             </Grid>
-            <Grid item xs={12}>
-              <TextField
-                label="Starting Point (in seconds)"
-                type="number"
-                onChange={handleStartPointChange}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                label="Duration (in seconds)"
-                type="number"
-                onChange={handleDurationChange}
-              />
-            </Grid>
+            
+            
             <Grid item xs={12}>
               {fileType == "video" && (
                 <Button
                   variant="contained"
-                  onClick={handleTrimVideo}
+                  onClick={handleMerge}
                   sx={{
                     backgroundColor: "#30448c",
                     color: "white"
                   }}
                 >
-                  Trim Video
+                  Merge Video
                 </Button>
               ) || (
                 <Button
                   variant="contained"
-                  onClick={handleTrimVideo}
+                  onClick={handleMerge}
                   sx={{
                     backgroundColor: "#30448c",
                     color: "white"
                   }}
                 >
-                  Trim Audio
+                  Merge Audio
                 </Button>
               )}
             </Grid>
@@ -180,7 +169,7 @@ const Trim = (props) => {
                     color: "white"
                   }}
                 >
-                  Download
+                  Merge
                 </Button>
               )}
             </Grid>
@@ -192,4 +181,4 @@ const Trim = (props) => {
   );
 };
 
-export default Trim;
+export default Merge;
