@@ -10,7 +10,7 @@ import Contact from './components/Contact'
 import Footer from './components/Footer';
 import Info from './components/Info';
 import Tools from './components/Tools';
-import TrimVideo from './components/TrimVideo';
+import Trim from './components/Trim';
 import ToolsHeader from './components/ToolsHeader';
 
   
@@ -44,10 +44,9 @@ function App() {
               <Route path="/" exact element={<Home/>} />
               <Route path="/about" element={<About/>} />
               <Route path="/contact" element={<Contact/>} />
+              <Route path='/trimVideo' element={<Trim fileType='video'/>} />
+              <Route path='/trimAudio' element={<Trim fileType='audio'/>} />
             </Routes>
-            <ToolsHeader />
-            <Tools />
-            <About />
           </Router>
         </>
       ) : (

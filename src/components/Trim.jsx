@@ -4,9 +4,9 @@ import { createFFmpeg } from "@ffmpeg/ffmpeg";
 import {ffmpeg} from '../App'
 
 
-const TrimVideo = () => {
-
-
+const Trim = (props) => {
+  const { fileType } = props;
+  
   const [selectedFile, setSelectedFile] = useState(null);
   const [startPoint, setStartPoint] = useState(null);
   const [duration, setDuration] = useState(null);
@@ -37,34 +37,40 @@ const TrimVideo = () => {
     reader.onload = async (event) => {
       const { result } = event.target;
       const inputFileName = selectedFile.name;
-      const inputFormat = inputFileName.substring(inputFileName.lastIndexOf(".") + 1);
+      let inputFormat = inputFileName.substring(inputFileName.lastIndexOf(".") + 1);
 
       ffmpeg.FS("writeFile", "input." + inputFormat, new Uint8Array(result));
 
-      // Trim the video
-      await ffmpeg.run(
-        "-i",
-        "/input." + inputFormat,
-        "-ss",
-        startPoint.toString(),
-        "-t",
-        duration.toString(),
-        "-c:v",
-        "libx264",
-        "-c:a",
-        "aac",
-        "-strict",
-        "-2",
-        "-b:a",
-        "384k",
-        "-b:v",
-        "1000k",
-        "output." + inputFormat,
-      );
+      if(fileType == 'video'){
+        // Trim the video
+        await ffmpeg.run(
+          "-i",
+          "input." + inputFormat,
+          "-ss",
+          startPoint.toString(),
+          "-t",
+          duration.toString(),
+          "output." + inputFormat,
+        );
+      } else {
+        await ffmpeg.run(
+          '-i',
+          'input.' + inputFormat,
+          '-ss',
+          startPoint.toString(),
+          '-t',
+          duration.toString(),
+          '-c',
+          'copy',
+          'output.' + inputFormat
+        )
+      }
 
       // Get the trimmed video as a Blob and create a download link for it
       const data = ffmpeg.FS("readFile", "output." + inputFormat);
-      const blob = new Blob([data.buffer], { type: "video" });
+      let blob = undefined;
+      if(fileType == 'video') {blob = new Blob([data.buffer], { type: "video" });}
+      else {blob = new Blob([data.buffer], { type: "audio" });}
       const url = URL.createObjectURL(blob);
       setDownloadUrl(url);
 
@@ -77,12 +83,13 @@ const TrimVideo = () => {
   const handleDownload = () => {
     const link = document.createElement("a");
     link.href = downloadUrl;
-    link.download = "trimmed_video.mp4";
+    if(fileType == 'video') {link.download = "trimmed.mp4";}
+    else {link.download = "trimmed.mp3";}
     link.click();
   };
 
   return (
-    <Container maxWidth="md" >
+    <Container maxWidth="md">
       <Typography variant="h4" sx={{
         fontWeight: "bold",
         marginBottom: "16px",
@@ -112,16 +119,29 @@ const TrimVideo = () => {
               />
             </Grid>
             <Grid item xs={12}>
-              <Button
-                variant="contained"
-                onClick={handleTrimVideo}
-                sx={{
-                  backgroundColor: "#30448c",
-                  color: "white"
-                }}
-              >
-                Trim Video
-              </Button>
+              {fileType == "video" && (
+                <Button
+                  variant="contained"
+                  onClick={handleTrimVideo}
+                  sx={{
+                    backgroundColor: "#30448c",
+                    color: "white"
+                  }}
+                >
+                  Trim Video
+                </Button>
+              ) || (
+                <Button
+                  variant="contained"
+                  onClick={handleTrimVideo}
+                  sx={{
+                    backgroundColor: "#30448c",
+                    color: "white"
+                  }}
+                >
+                  Trim Audio
+                </Button>
+              )}
             </Grid>
           </Grid>
         </Grid>
@@ -139,15 +159,18 @@ const TrimVideo = () => {
                   justifyContent: "center"
                 }}
               >
-                {downloadUrl && (
+                {downloadUrl && (fileType == "video" &&(
                   <video
                     src={downloadUrl}
                     controls
                     style={{ width: "100%", height: "100%" }}
                   />
-                ) || (
-                  <Typography sx={{ color: "#9e9e9e" }}>YOUR TRIMMED VIDEO</Typography>
-                )}
+                )) || (fileType == "audio" &&(
+                  <audio
+                    src={downloadUrl}
+                    controls
+                  />
+                ))}
               </Box>
               {downloadUrl && (
                 <Button
@@ -170,4 +193,4 @@ const TrimVideo = () => {
   );
 };
 
-export default TrimVideo;
+export default Trim;

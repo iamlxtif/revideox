@@ -1,7 +1,6 @@
 import { Box, Button, Grid, Stack, Typography } from '@mui/material'
 import React from 'react'
 import { Link } from "react-router-dom";
-import TrimVideo from './TrimVideo'
 import { useState, useEffect } from 'react';
 import trim from '../assets/icons/VideoTools/trim.png';
 import merge from '../assets/icons/VideoTools/merge.png';
@@ -19,12 +18,6 @@ import speed from '../assets/icons/AudioTools/speed.png';
 
 const Tools = () => {
     
-
-    const [showTrimVideo, setShowTrimVideo] = useState(false);
-
-    const handleButtonClick = () => {
-    setShowTrimVideo(!showTrimVideo);
-    };
 
     return (
         <>
@@ -51,7 +44,7 @@ const Tools = () => {
                         }}>Video tools</Typography>
                         <Stack direction='column'>
                         {videoTools.map((videoTool) => (
-                            <Button key={videoTool.key} onClick={handleButtonClick}  sx={{
+                            <Button key={videoTool.key} component={Link} to={videoTool.path} sx={{
                                 color: '#044cbc',
                                 justifyContent: 'flex-start',
                                 fontSize: '0.9rem',
@@ -89,7 +82,7 @@ const Tools = () => {
                         }}>Audio tools</Typography>
                         <Stack direction='column'>
                         {audioTools.map((audioTool) => (
-                            <Button key={audioTool.key} sx={{
+                            <Button key={audioTool.key} component={Link} to={audioTool.path} sx={{
                                 color: '#044cbc',
                                 justifyContent: 'flex-start',
                                 fontSize: '0.9rem',
@@ -185,7 +178,6 @@ const Tools = () => {
                     </Grid>
                 </Grid> 
             </Box>
-            {showTrimVideo && <TrimVideo />}
         </>
     )
 }
@@ -194,32 +186,32 @@ const videoTools = [
     {
         key: '1',
         name: 'Trim video',
-        component: <TrimVideo />,
+        path: '/trimVideo',
         icon: trim,
     },
     {
         key: '2',
         name: 'Merge video',
-        component: <TrimVideo />,
+        path: '/trim',
         icon: merge,
     },
     {
         key: '3',
         name: 'Rotate video',
-        component: <TrimVideo />,
+        path: '/trim',
         icon: rotate ,
 
     },
     {
         key: '4',
         name: 'Compress video',
-        component: <TrimVideo />,
+        path: '/trim',
         icon: compress ,
     },
     {
         key: '5',
         name: 'Reverse video',
-        component: <TrimVideo />,
+        path: '/trim',
         icon: video ,
     }
 ]
@@ -228,26 +220,26 @@ const audioTools = [
     {
         key: '5',
         name: 'Trim audio',
-        component: <TrimVideo />,
+        path: '/trimAudio',
         icon: trim,
 
     },
     {
         key: '6',
         name: 'Merge audio',
-        component: <TrimVideo />,
+        path: '/trim',
         icon: merge,
     },
     {
         key: '7',
         name: 'Extract audio from video',
-        component: <TrimVideo />,
+        path: '/trim',
         icon: VidAud,
     },
     {
         key: '8',
         name: 'Change audio speed',
-        component: <TrimVideo />,
+        path: '/trim',
         icon: speed,
     }
 ]
@@ -256,31 +248,31 @@ const convertToVideoTools = [
     {
         key: '9',
         name: 'Convert to MP4',
-        component: <TrimVideo />,
+        path: '/trim',
         icon: video,
     },
     {
         key: '10',
         name: 'Convert to WEBM',
-        component: <TrimVideo />,
+        path: '/trim',
         icon: video,
     },
     {
         key: '11',
         name: 'Convert to MOV',
-        component: <TrimVideo />,
+        path: '/trim',
         icon: video,
     },
     {
         key: '12',
         name: 'Convert to AVI',
-        component: <TrimVideo />,
+        path: '/trim',
         icon: video,
     },
     {
         key: '13',
         name: 'Convert to MKV',
-        component: <TrimVideo />,
+        path: '/trim',
         icon: video,
     },
 ]
@@ -289,37 +281,37 @@ const convertToAudioTools = [
     {
         key: '14',
         name: 'Convert to MP3',
-        component: <TrimVideo />,
+        path: '/trim',
         icon: audio,
     },
     {
         key: '15',
         name: 'Convert to WAV',
-        component: <TrimVideo />,
+        path: '/trim',
         icon: audio,
     },
     {
         key: '16',
         name: 'Convert to M4A',
-        component: <TrimVideo />,
+        path: '/trim',
         icon: audio,
     },
     {
         key: '17',
         name: 'Convert to OGG',
-        component: <TrimVideo />,
+        path: '/trim',
         icon: audio,
     },
     {
         key: '18',
         name: 'Convert to ACC',
-        component: <TrimVideo />,
+        path: '/trim',
         icon: audio,
     },
     {
         key: '19',
         name: 'Convert to FLAC',
-        component: <TrimVideo />,
+        path: '/trim',
         icon: audio,
     },
 ]
