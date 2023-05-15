@@ -64,7 +64,6 @@ const Tools = () => {
                                     alt=""
                                 />
                                 {videoTool.name}
-                                
                             </Button>
                             
                         ))}
