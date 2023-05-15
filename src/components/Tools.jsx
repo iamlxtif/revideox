@@ -11,6 +11,8 @@ import convertAUD from '../assets/icons/AudioTools/convert2.png';
 import video from '../assets/icons/VideoTools/video.png';
 import VidAud from '../assets/icons/AudioTools/VidAud.png';
 import audio from '../assets/icons/AudioTools/audio.png';
+import speed from '../assets/icons/AudioTools/speed.png';
+
 
 
 
@@ -246,7 +248,7 @@ const audioTools = [
         key: '8',
         name: 'Change audio speed',
         component: <TrimVideo />,
-        icon: audio,
+        icon: speed,
     }
 ]
 
