@@ -4,7 +4,10 @@ import { Link } from "react-router-dom";
 import MenuIcon from '@mui/icons-material/Menu';
 import styled from "styled-components";
 import GitHubIcon from '@mui/icons-material/GitHub';
-import Bg from '../assets/background.svg'
+import Tools from "./Tools";
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+
+
 
 const Logo = styled.img`
   margin-right: 10px;
@@ -24,6 +27,12 @@ const Navbar = () => {
     setOpen(!open);
   };
 
+  const [showTools, setShowTools] = useState(false);
+
+  const toggleTools = () => {
+    setShowTools(!showTools);
+  };
+
   return (
     <Box sx={{ flexGrow: 1}}>
       <AppBar position="fixed">
@@ -32,6 +41,31 @@ const Navbar = () => {
             <Link to="/">
               <Logo src="/src/assets/logo.svg" alt="Logo" style={{ height: 30 }}/>
             </Link>
+            <Button onClick={toggleTools}  color="inherit" sx={{
+              marginLeft: 1,
+              "&:hover" : {
+                backgroundColor: "rgba(255, 255, 255, 0.1)",
+                color: 'white',
+                transform: "scale(1.1)",
+                transition: "all 0.3s ease-in-outall 0.3s ease-in-out"
+              }
+            }}>
+              All Tools <KeyboardArrowDownIcon />
+            </Button>
+            {showTools && (
+              <div
+                style={{
+                  position: "fixed",
+                  top: "64px",
+                  left: 0,
+                  width: "100vw",
+                  height: "calc(100vh - 64px)",
+                  backgroundColor: "white",
+                }}
+              >
+              <Tools/>
+              </div>
+            )}
           </Typography>
           <Box>
           <Box sx={{ display: { sm: "flex", md: "flex", xs: "none" } }}>
