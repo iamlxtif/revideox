@@ -82,8 +82,9 @@ const Trim = (props) => {
   const handleDownload = () => {
     const link = document.createElement("a");
     link.href = downloadUrl;
-    if(fileType == 'video') {link.download = "trimmed.mp4";}
-    else {link.download = "trimmed.mp3";}
+    const inputFileName = selectedFile.name;
+    let inputFormat = inputFileName.substring(inputFileName.lastIndexOf(".") + 1);
+    link.download = "trimmed." + inputFormat;
     link.click();
   };
 

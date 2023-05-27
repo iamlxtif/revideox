@@ -241,7 +241,7 @@ const audioTools = [
     {
         key: '8',
         name: 'Change audio speed',
-        path: '/trim',
+        path: '/audioSpeed',
         icon: speed,
     }
 ]
