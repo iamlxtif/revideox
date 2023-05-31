@@ -67,7 +67,7 @@ const Home = () => {
                   marginRight: '2rem'
                 }
               }}>Get Started</Button>
-              <Button sx={{
+              <Button component={Link} to={'/About'}sx={{
                 border: "1px solid #ffffff",
                 padding: "0.5rem 1rem",
                 borderRadius: "2rem",
