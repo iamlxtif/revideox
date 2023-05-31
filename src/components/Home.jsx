@@ -5,6 +5,7 @@ import Bg from '../assets/background.svg'
 import ToolsHeader from './ToolsHeader';
 import Tools from './Tools';
 import About from './About';
+import { Link } from 'react-router-dom';
 
 
 
@@ -49,7 +50,7 @@ const Home = () => {
                 Easy multimedia editing and conversion using FFmpeg engine.
               </Typography>
               <br />
-              <Button sx={{
+              <Button component={Link} to={'/Tools'} sx={{
                 background: 'linear-gradient(135deg, #ff9800, #ff6000)',
                 color: '#fff',
                 padding: '0.5rem 1rem',
