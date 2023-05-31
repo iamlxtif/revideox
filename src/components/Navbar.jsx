@@ -63,7 +63,7 @@ const Navbar = () => {
                   backgroundColor: "white",
                 }}
               >
-              <Tools/>
+              <Tools show={showTools}/>
               </div>
             )}
           </Typography>

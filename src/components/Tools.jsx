@@ -16,8 +16,13 @@ import speed from '../assets/icons/AudioTools/speed.png';
 
 
 
-const Tools = () => {
+const Tools = (props) => {
     
+    const { show } = props;
+
+    const changeShow = () => {
+        show = !show;
+    }
 
     return (
         <>
@@ -45,7 +50,7 @@ const Tools = () => {
                         }}>Video tools</Typography>
                         <Stack direction='column'>
                         {videoTools.map((videoTool) => (
-                            <Button key={videoTool.key} component={Link} to={videoTool.path} sx={{
+                            <Button key={videoTool.key} onClick={changeShow} component={Link} to={videoTool.path} sx={{
                                 color: '#044cbc',
                                 justifyContent: 'flex-start',
                                 fontSize: '0.9rem',
@@ -83,7 +88,7 @@ const Tools = () => {
                         }}>Audio tools</Typography>
                         <Stack direction='column'>
                         {audioTools.map((audioTool) => (
-                            <Button key={audioTool.key} component={Link} to={audioTool.path} sx={{
+                            <Button key={audioTool.key} onClick={changeShow} component={Link} to={audioTool.path} sx={{
                                 color: '#044cbc',
                                 justifyContent: 'flex-start',
                                 fontSize: '0.9rem',
@@ -120,7 +125,7 @@ const Tools = () => {
                         }}>Convert to video</Typography>
                         <Stack direction='column'>
                         {convertToVideoTools.map((convertToVideoTool) => (
-                            <Button  key={convertToVideoTool.key} component={Link} to={convertToVideoTool.path}
+                            <Button  key={convertToVideoTool.key} onClick={changeShow} component={Link} to={convertToVideoTool.path}
                             sx={{
                                 color: '#044cbc',
                                 justifyContent: 'flex-start',
@@ -158,7 +163,7 @@ const Tools = () => {
                         }}>Convert to audio</Typography>
                         <Stack direction='column'>
                         {convertToAudioTools.map((convertToAudioTool) => (
-                            <Button key={convertToAudioTool.key} component={Link} to={convertToAudioTool.path} sx={{
+                            <Button key={convertToAudioTool.key} onClick={changeShow} component={Link} to={convertToAudioTool.path} sx={{
                                 color: '#044cbc',
                                 justifyContent: 'flex-start',
                                 fontSize: '0.9rem',
@@ -318,4 +323,4 @@ const convertToAudioTools = [
     },
 ]
 
-export default Tools
+export default Tools;
