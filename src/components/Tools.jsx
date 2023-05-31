@@ -1,12 +1,10 @@
 import { Box, Button, Grid, Stack, Typography } from '@mui/material'
 import React from 'react'
 import { Link } from "react-router-dom";
-import { useState, useEffect } from 'react';
 import trim from '../assets/icons/VideoTools/trim.png';
 import merge from '../assets/icons/VideoTools/merge.png';
 import rotate from '../assets/icons/VideoTools/rotate.png';
 import compress from '../assets/icons/VideoTools/compress.png';
-import convertAUD from '../assets/icons/AudioTools/convert2.png';
 import video from '../assets/icons/VideoTools/video.png';
 import VidAud from '../assets/icons/AudioTools/VidAud.png';
 import audio from '../assets/icons/AudioTools/audio.png';
