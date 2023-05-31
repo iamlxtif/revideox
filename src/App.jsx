@@ -11,6 +11,7 @@ import Trim from './components/Trim';
 import Merge from './components/Merge';
 import AudioSpeed from './components/AudioSpeed';
 import Convert from './components/Convert';
+import Tools from './components/Tools';
 
 
   
@@ -42,6 +43,7 @@ function App() {
               <Route path="/" exact element={<Home/>} />
               <Route path="/about" element={<About/>} />
               <Route path="/contact" element={<Contact/>} />
+              <Route path="/Tools" element={<Tools/>} />
               <Route path='/trimVideo' element={<Trim fileType='video'/>} />
               <Route path='/trimAudio' element={<Trim fileType='audio'/>} />
               <Route path='/mergeVideo' element={<Merge fileType='video'/>} />
