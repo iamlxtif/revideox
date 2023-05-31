@@ -10,6 +10,7 @@ import Contact from './components/Contact'
 import Trim from './components/Trim';
 import Merge from './components/Merge';
 import AudioSpeed from './components/AudioSpeed';
+import Convert from './components/Convert';
 
 
   
@@ -46,6 +47,12 @@ function App() {
               <Route path='/mergeVideo' element={<Merge fileType='video'/>} />
               <Route path='/mergeAudio' element={<Merge fileType='audio'/>} />
               <Route path='/audioSpeed' element={<AudioSpeed />} />
+              <Route path='/convertToMp3' element={<Convert toFormat='amp3'/>} />
+              <Route path='/convertToWav' element={<Convert toFormat='awav'/>} />
+              <Route path='/convertToM4a' element={<Convert toFormat='am4a'/>} />
+              <Route path='/convertToAac' element={<Convert toFormat='aaac'/>} />
+              <Route path='/convertToOgg' element={<Convert toFormat='aogg'/>} />
+              <Route path='/convertToFlac' element={<Convert toFormat='aflac'/>} />
             </Routes>
           </Router>
         </>

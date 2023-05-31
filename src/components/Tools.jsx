@@ -18,7 +18,7 @@ import speed from '../assets/icons/AudioTools/speed.png';
 
 const Tools = (props) => {
     
-    const { show } = props;
+    let { show } = props;
 
     const changeShow = () => {
         show = !show;
@@ -288,37 +288,37 @@ const convertToAudioTools = [
     {
         key: '14',
         name: 'Convert to MP3',
-        path: '/trim',
+        path: '/convertToMp3',
         icon: audio,
     },
     {
         key: '15',
         name: 'Convert to WAV',
-        path: '/trim',
+        path: '/convertToWav',
         icon: audio,
     },
     {
         key: '16',
         name: 'Convert to M4A',
-        path: '/trim',
+        path: '/convertToM4a',
         icon: audio,
     },
     {
         key: '17',
         name: 'Convert to OGG',
-        path: '/trim',
+        path: '/convertToOgg',
         icon: audio,
     },
     {
         key: '18',
-        name: 'Convert to ACC',
-        path: '/trim',
+        name: 'Convert to AAC',
+        path: '/convertToAac',
         icon: audio,
     },
     {
         key: '19',
         name: 'Convert to FLAC',
-        path: '/trim',
+        path: '/convertToFlac',
         icon: audio,
     },
 ]
