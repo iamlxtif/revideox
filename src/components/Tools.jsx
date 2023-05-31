@@ -18,7 +18,7 @@ import speed from '../assets/icons/AudioTools/speed.png';
 
 const Tools = (props) => {
     
-    const { show } = props;
+    let { show } = props;
 
     const changeShow = () => {
         show = !show;
