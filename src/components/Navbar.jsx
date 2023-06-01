@@ -37,11 +37,11 @@ const Navbar = () => {
     <Box sx={{ flexGrow: 1}}>
       <AppBar position="fixed">
         <Toolbar sx={{ display: "flex", justifyContent: "space-between", background: 'linear-gradient(90deg, rgba(48,68,140,1) 0%, rgba(4,78,188,1) 59%, rgba(4,142,192,1) 100%)' }}>
-          <Typography variant="h6" component="div">
+          <Box sx={{display: "flex", alignItems: 'center'}}>
             <Link to="/">
               <Logo src="/src/assets/logo.svg" alt="Logo" style={{ height: 30 }}/>
             </Link>
-            <Button onClick={toggleTools}  color="inherit" sx={{
+            <Button component={Link} to='/Tools'  color="inherit" sx={{
               marginLeft: 1,
               "&:hover" : {
                 backgroundColor: "rgba(255, 255, 255, 0.1)",
@@ -50,64 +50,12 @@ const Navbar = () => {
                 transition: "all 0.3s ease-in-outall 0.3s ease-in-out"
               }
             }}>
-              All Tools <KeyboardArrowDownIcon />
+              All Tools
             </Button>
-            {showTools && (
-              <div
-                style={{
-                  position: "fixed",
-                  top: "64px",
-                  left: 0,
-                  width: "100vw",
-                  height: "calc(100vh - 64px)",
-                  backgroundColor: "white",
-                }}
-              >
-              <Tools show={showTools}/>
-              </div>
-            )}
-          </Typography>
+          </Box>
           <Box>
-          <Box sx={{ display: { sm: "flex", md: "flex", xs: "none" } }}>
-            <Button color="inherit" component={Link} to="/" sx={{
-              marginLeft: 1,
-              "&:hover" : {
-                backgroundColor: "rgba(255, 255, 255, 0.1)",
-                color: 'white',
-                transform: "scale(1.1)",
-                transition: "all 0.3s ease-in-outall 0.3s ease-in-out"
-              }
-            }}>
-              Home
-            </Button>
-            <Button color="inherit" component={Link} to="/about" sx={{
-              marginLeft: 1,
-              "&:hover" : {
-                backgroundColor: "rgba(255, 255, 255, 0.1)",
-                color: 'white',
-                transform: "scale(1.1)",
-                transition: "all 0.3s ease-in-outall 0.3s ease-in-out"
-              }
-            }}>
-              About
-            </Button>
-            <Button color="inherit" component={Link} to="/contact" sx={{
-              marginLeft: 1,
-              "&:hover" : {
-                backgroundColor: "rgba(255, 255, 255, 0.1)",
-                color: 'white',
-                transform: "scale(1.1)",
-                transition: "all 0.3s ease-in-outall 0.3s ease-in-out"
-              }
-            }}>
-              Contact
-            </Button>
-            <Button
-              color="inherit"
-              href="https://github.com/madani-anes-dev/pfe-ffmpeg"
-              target="_blank"
-              rel="noopener"
-              sx={{
+            <Box sx={{ display: { sm: "flex", md: "flex", xs: "none" } }}>
+              <Button color="inherit" component={Link} to="/" sx={{
                 marginLeft: 1,
                 "&:hover" : {
                   backgroundColor: "rgba(255, 255, 255, 0.1)",
@@ -115,26 +63,64 @@ const Navbar = () => {
                   transform: "scale(1.1)",
                   transition: "all 0.3s ease-in-outall 0.3s ease-in-out"
                 }
-              }}
+              }}>
+                Home
+              </Button>
+              <Button color="inherit" component={Link} to="/about" sx={{
+                marginLeft: 1,
+                "&:hover" : {
+                  backgroundColor: "rgba(255, 255, 255, 0.1)",
+                  color: 'white',
+                  transform: "scale(1.1)",
+                  transition: "all 0.3s ease-in-outall 0.3s ease-in-out"
+                }
+              }}>
+                About
+              </Button>
+              <Button color="inherit" component={Link} to="/contact" sx={{
+                marginLeft: 1,
+                "&:hover" : {
+                  backgroundColor: "rgba(255, 255, 255, 0.1)",
+                  color: 'white',
+                  transform: "scale(1.1)",
+                  transition: "all 0.3s ease-in-outall 0.3s ease-in-out"
+                }
+              }}>
+                Contact
+              </Button>
+              <Button
+                color="inherit"
+                href="https://github.com/madani-anes-dev/pfe-ffmpeg"
+                target="_blank"
+                rel="noopener"
+                sx={{
+                  marginLeft: 1,
+                  "&:hover" : {
+                    backgroundColor: "rgba(255, 255, 255, 0.1)",
+                    color: 'white',
+                    transform: "scale(1.1)",
+                    transition: "all 0.3s ease-in-outall 0.3s ease-in-out"
+                  }
+                }}
+              >
+                <GitHubIcon sx={{ margin: 0.5 }} alt="github" />
+                GitHub
+              </Button>
+            </Box>
+            <IconButton
+              size="large"
+              edge="start"
+              color="inherit"
+              aria-label="menu"
+              sx={{ mr: 2, display: { sm: "none" } , "&:hover" : {
+                backgroundColor: "rgba(255, 255, 255, 0.1)",
+                transform: "scale(1.1)",
+                transition: "all 0.3s ease-in-outall 0.3s ease-in-out"
+            }}}
+              onClick={handleToggle}
             >
-              <GitHubIcon sx={{ margin: 0.5 }} alt="github" />
-              GitHub
-            </Button>
-          </Box>
-          <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="menu"
-            sx={{ mr: 2, display: { sm: "none" } , "&:hover" : {
-              backgroundColor: "rgba(255, 255, 255, 0.1)",
-              transform: "scale(1.1)",
-              transition: "all 0.3s ease-in-outall 0.3s ease-in-out"
-          }}}
-            onClick={handleToggle}
-          >
-            <MenuIcon />
-          </IconButton>
+              <MenuIcon />
+            </IconButton>
           </Box>
         </Toolbar>
       </AppBar>

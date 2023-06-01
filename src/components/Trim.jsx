@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Container, Grid, TextField, Box, Typography } from "@mui/material";
+import { Button, Container, Grid, TextField, Box, Typography, CircularProgress } from "@mui/material";
 import {ffmpeg} from '../App'
 
 
@@ -10,17 +10,21 @@ const Trim = (props) => {
   const [startPoint, setStartPoint] = useState(null);
   const [duration, setDuration] = useState(null);
   const [downloadUrl, setDownloadUrl] = useState(null);
+  const [showLoading, setShowLoading] = useState(false);
 
   const handleFileChange = (event) => {
     setSelectedFile(event.target.files[0]);
+    setDownloadUrl(null);
   };
 
   const handleStartPointChange = (event) => {
     setStartPoint(event.target.value);
+    setDownloadUrl(null);
   };
 
   const handleDurationChange = (event) => {
     setDuration(event.target.value);
+    setDownloadUrl(null);
   };
 
   const handleTrimVideo = () => {
@@ -28,7 +32,7 @@ const Trim = (props) => {
     if (!selectedFile || !startPoint || !duration) {
       return;
     }
-
+    setShowLoading(true);
     // Convert the selected file into an ArrayBuffer
     const reader = new FileReader();
     reader.readAsArrayBuffer(selectedFile);
@@ -72,7 +76,7 @@ const Trim = (props) => {
       else {blob = new Blob([data.buffer], { type: "audio" });}
       const url = URL.createObjectURL(blob);
       setDownloadUrl(url);
-
+      setShowLoading(false);
       // Clean up temporary files
       ffmpeg.FS("unlink", "input." + inputFormat);
       ffmpeg.FS("unlink", "output." + inputFormat);
@@ -90,17 +94,25 @@ const Trim = (props) => {
 
   return (
     <Container maxWidth="md">
-      <Typography variant="h4" sx={{
-        fontWeight: "bold",
-        marginBottom: "16px",
-        color: "#30448c"
-      }}
-      >
-        Trimming
-      </Typography>
-      <Grid container spacing={2}>
+      <Grid container spacing={2}sx={{
+        alignItems: 'center',
+      }}>
         <Grid item md={6} sm={12} xs={12}>
-          <Grid container spacing={2}>
+          <Grid container spacing={2} sx={{
+            justifyContent: 'center',
+            alignItems: 'center',
+            flexDirection: 'column'
+          }}>
+            <Grid item xs={12}>
+              <Typography variant="h4" sx={{
+                fontWeight: "bold",
+                marginBottom: "16px",
+                color: "#30448c"
+              }}
+              >
+                Trimming
+              </Typography>
+            </Grid>
             <Grid item xs={12}>
               <TextField type="file" onChange={handleFileChange} />
             </Grid>
@@ -143,10 +155,14 @@ const Trim = (props) => {
                 </Button>
               )}
             </Grid>
+            {showLoading &&(
+              <Grid item xs={12} sx={{ color: '#30448c' }}>
+                <CircularProgress color="inherit" size={30} />
+              </Grid>
+            )}
           </Grid>
         </Grid>
         <Grid item md={6} sm={12} xs={12}>
-          
             <Grid item xs={12}>
               <Box
                 sx={{

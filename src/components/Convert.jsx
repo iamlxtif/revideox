@@ -6,6 +6,7 @@ import {
     TextField,
     Box,
     Typography,
+    CircularProgress,
 } from "@mui/material";
 import { ffmpeg } from "../App";
 
@@ -16,9 +17,11 @@ const Convert = (props) => {
 
     const [selectedFile, setSelectedFile] = useState(null);
     const [downloadUrl, setDownloadUrl] = useState(null);
+    const [showLoading, setShowLoading] = useState(false);
 
     const handleFileChange = (event) => {
         setSelectedFile(event.target.files[0]);
+        setDownloadUrl(null);
     };
 
     const handleConvertVideo = () => {
@@ -26,7 +29,7 @@ const Convert = (props) => {
         if (!selectedFile) {
             return;
         }
-
+        setShowLoading(true);
         // Convert the selected file into an ArrayBuffer
         const reader = new FileReader();
         reader.readAsArrayBuffer(selectedFile);
@@ -94,7 +97,39 @@ const Convert = (props) => {
                     );
                 }  
             } else {
-                
+                if (outputFormat == 'mp4'||outputFormat == 'mkv'||outputFormat == 'mov') {
+                    await ffmpeg.run(
+                        "-i",
+                        "input." + inputFormat,
+                        "-c:v",
+                        "libx264",
+                        "-c:a",
+                        "aac",
+                        "output." + outputFormat
+                    );
+                }
+                else if (outputFormat == 'webm') {
+                    await ffmpeg.run(
+                        "-i",
+                        "input." + inputFormat,
+                        "-c:v",
+                        "libvpx-vp9",
+                        "-c:a",
+                        "libvorbis",
+                        "output." + outputFormat
+                    );
+                }
+                else if (outputFormat == 'avi') {
+                    await ffmpeg.run(
+                        "-i",
+                        "input." + inputFormat,
+                        "-c:v",
+                        "libxvid",
+                        "-c:a",
+                        "mp3",
+                        "output." + outputFormat
+                    );
+                }
             }
 
             // Get the Converted file as a Blob and create a download link for it
@@ -107,6 +142,7 @@ const Convert = (props) => {
             }
             const url = URL.createObjectURL(blob);
             setDownloadUrl(url);
+            setShowLoading(false);
 
             // Clean up temporary files
             ffmpeg.FS("unlink", "input." + inputFormat);
@@ -122,7 +158,13 @@ const Convert = (props) => {
     };
 
     return (
-        <Container maxWidth="md">
+        <Container sx={{
+            width: '100vw',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            flexDirection: 'column'
+        }}>
             <Typography
                 variant="h4"
                 sx={{
@@ -133,7 +175,12 @@ const Convert = (props) => {
             >
                 Converting
             </Typography>
-            <Grid container spacing={2}>
+            <Grid container spacing={2} sx={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                flexDirection: 'column'
+            }}>
                 <Grid item xs={12}>
                     <TextField type="file" onChange={handleFileChange} />
                 </Grid>
@@ -161,6 +208,11 @@ const Convert = (props) => {
                         >
                             Download
                         </Button>
+                    </Grid>
+                )}
+                {showLoading &&(
+                    <Grid item xs={12} sx={{ color: '#30448c' }}>
+                        <CircularProgress color="inherit" size={30} />
                     </Grid>
                 )}
             </Grid>

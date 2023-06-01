@@ -12,6 +12,7 @@ import Merge from './components/Merge';
 import AudioSpeed from './components/AudioSpeed';
 import Convert from './components/Convert';
 import Tools from './components/Tools';
+import Reverse from './components/Reverse';
 
 
   
@@ -55,6 +56,12 @@ function App() {
               <Route path='/convertToAac' element={<Convert toFormat='aaac'/>} />
               <Route path='/convertToOgg' element={<Convert toFormat='aogg'/>} />
               <Route path='/convertToFlac' element={<Convert toFormat='aflac'/>} />
+              <Route path='/convertToMp4' element={<Convert toFormat='vmp4'/>} />
+              <Route path='/convertToMkv' element={<Convert toFormat='vmkv'/>} />
+              <Route path='/convertToMov' element={<Convert toFormat='vmov'/>} />
+              <Route path='/convertToWebm' element={<Convert toFormat='vwebm'/>} />
+              <Route path='/convertToAvi' element={<Convert toFormat='vavi'/>} />
+              <Route path='/reverse' element={<Reverse />} />
             </Routes>
           </Router>
         </>

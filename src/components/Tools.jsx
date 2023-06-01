@@ -1,5 +1,5 @@
 import { Box, Button, Grid, Stack, Typography } from '@mui/material'
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from "react-router-dom";
 import trim from '../assets/icons/VideoTools/trim.png';
 import merge from '../assets/icons/VideoTools/merge.png';
@@ -14,14 +14,8 @@ import speed from '../assets/icons/AudioTools/speed.png';
 
 
 
-const Tools = (props) => {
+const Tools = () => {
     
-    const { show } = props;
-
-    const changeShow = () => {
-        show = !show;
-    }
-
     return (
         <>
             <Box sx={{
@@ -29,7 +23,8 @@ const Tools = (props) => {
                 justifyContent: 'center',
                 alignItems: 'center',
                 width: '100vw',
-                marginTop: '10vh'
+                marginTop: '10vh',
+                zIndex: '0'
             }}>
                 <Grid container sx={{  paddingLeft: {xs: '2rem', sm: '5rem'} }}>
                     <Grid item xs={12} sm={6} md={6} lg={3} sx={{
@@ -48,7 +43,7 @@ const Tools = (props) => {
                         }}>Video tools</Typography>
                         <Stack direction='column'>
                         {videoTools.map((videoTool) => (
-                            <Button key={videoTool.key} onClick={changeShow} component={Link} to={videoTool.path} sx={{
+                            <Button key={videoTool.key} component={Link} to={videoTool.path} sx={{
                                 color: '#044cbc',
                                 justifyContent: 'flex-start',
                                 fontSize: '0.9rem',
@@ -86,7 +81,7 @@ const Tools = (props) => {
                         }}>Audio tools</Typography>
                         <Stack direction='column'>
                         {audioTools.map((audioTool) => (
-                            <Button key={audioTool.key} onClick={changeShow} component={Link} to={audioTool.path} sx={{
+                            <Button key={audioTool.key} component={Link} to={audioTool.path} sx={{
                                 color: '#044cbc',
                                 justifyContent: 'flex-start',
                                 fontSize: '0.9rem',
@@ -123,7 +118,7 @@ const Tools = (props) => {
                         }}>Convert to video</Typography>
                         <Stack direction='column'>
                         {convertToVideoTools.map((convertToVideoTool) => (
-                            <Button  key={convertToVideoTool.key} onClick={changeShow} component={Link} to={convertToVideoTool.path}
+                            <Button key={convertToVideoTool.key} component={Link} to={convertToVideoTool.path}
                             sx={{
                                 color: '#044cbc',
                                 justifyContent: 'flex-start',
@@ -161,7 +156,7 @@ const Tools = (props) => {
                         }}>Convert to audio</Typography>
                         <Stack direction='column'>
                         {convertToAudioTools.map((convertToAudioTool) => (
-                            <Button key={convertToAudioTool.key} onClick={changeShow} component={Link} to={convertToAudioTool.path} sx={{
+                            <Button key={convertToAudioTool.key} component={Link} to={convertToAudioTool.path} sx={{
                                 color: '#044cbc',
                                 justifyContent: 'flex-start',
                                 fontSize: '0.9rem',
@@ -216,7 +211,7 @@ const videoTools = [
     {
         key: '5',
         name: 'Reverse video',
-        path: '/trim',
+        path: '/reverse',
         icon: video ,
     }
 ]
@@ -253,31 +248,31 @@ const convertToVideoTools = [
     {
         key: '9',
         name: 'Convert to MP4',
-        path: '/trim',
+        path: '/convertToMp4',
         icon: video,
     },
     {
         key: '10',
         name: 'Convert to WEBM',
-        path: '/trim',
+        path: '/convertToWebm',
         icon: video,
     },
     {
         key: '11',
         name: 'Convert to MOV',
-        path: '/trim',
+        path: '/convertToMov',
         icon: video,
     },
     {
         key: '12',
         name: 'Convert to AVI',
-        path: '/trim',
+        path: '/convertToAvi',
         icon: video,
     },
     {
         key: '13',
         name: 'Convert to MKV',
-        path: '/trim',
+        path: '/convertToMkv',
         icon: video,
     },
 ]
@@ -321,4 +316,4 @@ const convertToAudioTools = [
     },
 ]
 
-export default Tools;
+export default Tools
