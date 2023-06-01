@@ -1,30 +1,43 @@
 import React, { useState } from 'react';
 import { Button, Container, Grid, TextField, Box, Typography, CircularProgress } from "@mui/material";
 import {ffmpeg} from '../App'
+import { KeyboardArrowDown } from '@mui/icons-material';
 
 
 const Trim = (props) => {
   const { fileType } = props;
   
-  const [selectedFile, setSelectedFile] = useState(null);
+  const [selectedFile, setSelectedFile] = useState('');
   const [startPoint, setStartPoint] = useState(null);
   const [duration, setDuration] = useState(null);
-  const [downloadUrl, setDownloadUrl] = useState(null);
+  const [downloadUrl, setDownloadUrl] = useState('');
   const [showLoading, setShowLoading] = useState(false);
+  const [showDownload, setShowDownload] = useState(false);
 
   const handleFileChange = (event) => {
-    setSelectedFile(event.target.files[0]);
-    setDownloadUrl(null);
+    const file = event.target.files[0];
+    const fileUrl = URL.createObjectURL(file);
+    setSelectedFile(file);
+    setDownloadUrl(fileUrl);
+    setShowDownload(false);
   };
 
   const handleStartPointChange = (event) => {
     setStartPoint(event.target.value);
-    setDownloadUrl(null);
+    setShowDownload(false);
+    if (showDownload) {
+      const fileUrl = URL.createObjectURL(selectedFile);
+      setDownloadUrl(fileUrl);
+    }
   };
 
   const handleDurationChange = (event) => {
     setDuration(event.target.value);
-    setDownloadUrl(null);
+    setShowDownload(false);
+    if (showDownload) {
+      const fileUrl = URL.createObjectURL(selectedFile);
+      setDownloadUrl(fileUrl);
+    }
   };
 
   const handleTrimVideo = () => {
@@ -77,6 +90,7 @@ const Trim = (props) => {
       const url = URL.createObjectURL(blob);
       setDownloadUrl(url);
       setShowLoading(false);
+      setShowDownload(true);
       // Clean up temporary files
       ffmpeg.FS("unlink", "input." + inputFormat);
       ffmpeg.FS("unlink", "output." + inputFormat);
@@ -167,15 +181,22 @@ const Trim = (props) => {
               <Box
                 sx={{
                   width: "100%",
-                  height: "400px",
-                  border: "2px dashed #9e9e9e",
                   marginBottom: "16px",
                   display: "flex",
                   alignItems: "center",
-                  justifyContent: "center"
+                  justifyContent: "center",
+                  flexDirection: 'column'
                 }}
               >
-                {downloadUrl && (fileType == "video" &&(
+                <Typography variant="h8" sx={{
+                  fontWeight: "bold",
+                  color: "#30448c"
+                }}
+                >
+                  Your file 
+                </Typography>
+                <KeyboardArrowDown style={{color: '#30448c'}} />
+                {(fileType == "video" &&(
                   <video
                     src={downloadUrl}
                     controls
@@ -188,7 +209,7 @@ const Trim = (props) => {
                   />
                 ))}
               </Box>
-              {downloadUrl && (
+              {showDownload && (
                 <Button
                   variant="contained"
                   onClick={handleDownload}
@@ -203,7 +224,6 @@ const Trim = (props) => {
             </Grid>
           
         </Grid>
-        
       </Grid>
     </Container>
   );

@@ -10,6 +10,7 @@ import {
     InputLabel,
     Select,
     MenuItem,
+    CircularProgress,
 } from "@mui/material";
 import { ffmpeg } from "../App";
 
@@ -18,16 +19,27 @@ import { ffmpeg } from "../App";
 
 const AudioSpeed = () => {
 
-    const [selectedFile, setSelectedFile] = useState(null);
+    const [selectedFile, setSelectedFile] = useState('');
     const [selectedValue, setSelectedValue] = useState('');
     const [downloadUrl, setDownloadUrl] = useState(null);
+    const [showDownload, setShowDownload] = useState(false);
+    const [showLoading, setShowLoading] = useState(false);
 
     const handleFileChange = (event) => {
-        setSelectedFile(event.target.files[0]);
+        const file = event.target.files[0];
+        const fileUrl = URL.createObjectURL(file);
+        setSelectedFile(file);
+        setDownloadUrl(fileUrl);
+        setShowDownload(false);
     };
 
     const handleDropdownChange = (event) => {
         setSelectedValue(event.target.value);
+        setShowDownload(false);
+        if (showDownload) {
+            const fileUrl = URL.createObjectURL(selectedFile);
+            setDownloadUrl(fileUrl);
+        }
     };
 
     const handleAudioSpeed = () => {
@@ -35,7 +47,7 @@ const AudioSpeed = () => {
         if (!selectedFile || !selectedValue) {
             return;
         }
-
+        setShowLoading(true);
         // Convert the selected file into an ArrayBuffer
         const reader = new FileReader();
         reader.readAsArrayBuffer(selectedFile);
@@ -53,7 +65,7 @@ const AudioSpeed = () => {
                 "-i",
                 "/input." + inputFormat,
                 "-filter:a",
-                "atempo=" + selectedValue.toString(),
+                "atempo=" + selectedValue,
                 "/output." + inputFormat
             );
             
@@ -62,6 +74,8 @@ const AudioSpeed = () => {
             const blob = new Blob([data.buffer], { type: "audio" });
             const url = URL.createObjectURL(blob);
             setDownloadUrl(url);
+            setShowDownload(true);
+            setShowLoading(false);
 
             // Clean up temporary files
             ffmpeg.FS("unlink", "input." + inputFormat);
@@ -80,19 +94,27 @@ const AudioSpeed = () => {
 
     return (
         <Container maxWidth="md">
-            <Typography
-                variant="h4"
-                sx={{
-                    fontWeight: "bold",
-                    marginBottom: "16px",
-                    color: "#30448c",
-                }}
-            >
-                Chaning audio speed
-            </Typography>
-            <Grid container spacing={2}>
+            <Grid container spacing={2}sx={{
+                alignItems: 'center',
+            }}>
                 <Grid item md={6} sm={12} xs={12}>
-                    <Grid container spacing={2}>
+                    <Grid container spacing={2} sx={{
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        flexDirection: 'column'
+                    }}>
+                        <Grid item xs={12}>
+                        <Typography
+                            variant="h4"
+                            sx={{
+                                fontWeight: "bold",
+                                marginBottom: "16px",
+                                color: "#30448c",
+                            }}
+                        >
+                            Chaning audio speed
+                        </Typography>
+                        </Grid>
                         <Grid item xs={12}>
                             <TextField type="file" onChange={handleFileChange} />
                         </Grid>
@@ -100,7 +122,6 @@ const AudioSpeed = () => {
                             <FormControl sx={{ width: '200px' }}>
                                 <InputLabel id="dropdown-label">Select a speed value</InputLabel>
                                 <Select labelId="dropdown-label" id="dropdown" onChange={handleDropdownChange} value={selectedValue}>
-                                    <MenuItem value="0.25">x0.25</MenuItem>
                                     <MenuItem value="0.5">x0.5</MenuItem>
                                     <MenuItem value="0.75">x0.75</MenuItem>
                                     <MenuItem value="1.25">x1.25</MenuItem>
@@ -122,6 +143,11 @@ const AudioSpeed = () => {
                                 Change speed
                             </Button>
                         </Grid>
+                        {showLoading &&(
+                            <Grid item xs={12} sx={{ color: '#30448c' }}>
+                                <CircularProgress color="inherit" size={30} />
+                            </Grid>
+                        )}
                     </Grid>
                 </Grid>
                 <Grid item md={6} sm={12} xs={12}>
@@ -130,7 +156,6 @@ const AudioSpeed = () => {
                             sx={{
                                 width: "100%",
                                 height: "400px",
-                                border: "2px dashed #9e9e9e",
                                 marginBottom: "16px",
                                 display: "flex",
                                 alignItems: "center",
@@ -139,7 +164,7 @@ const AudioSpeed = () => {
                         >
                             <audio src={downloadUrl} controls />
                         </Box>
-                        {downloadUrl && (
+                        {showDownload && (
                             <Button
                                 variant="contained"
                                 onClick={handleDownload}

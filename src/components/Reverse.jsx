@@ -9,15 +9,20 @@ import {
     CircularProgress,
 } from "@mui/material";
 import { ffmpeg } from "../App";
+import { KeyboardArrowDown } from "@mui/icons-material";
 
 const Reverse = () => {
-    const [selectedFile, setSelectedFile] = useState(null);
+    const [selectedFile, setSelectedFile] = useState('');
     const [downloadUrl, setDownloadUrl] = useState(null);
     const [showLoading, setShowLoading] = useState(false);
+    const [showDownload, setShowDownload] = useState(false);
 
     const handleFileChange = (event) => {
-        setSelectedFile(event.target.files[0]);
-        setDownloadUrl(null);
+        const file = event.target.files[0];
+        const fileUrl = URL.createObjectURL(file);
+        setSelectedFile(file);
+        setDownloadUrl(fileUrl);
+        setShowDownload(false);
     };
 
     const handleReverseVideo = () => {
@@ -56,6 +61,7 @@ const Reverse = () => {
             const url = URL.createObjectURL(blob);
             setDownloadUrl(url);
             setShowLoading(false);
+            setShowDownload(true);
 
             // Clean up temporary files
             ffmpeg.FS("unlink", "input." + inputFormat);
@@ -124,23 +130,28 @@ const Reverse = () => {
                         <Box
                             sx={{
                                 width: "100%",
-                                height: "400px",
-                                border: "2px dashed #9e9e9e",
                                 marginBottom: "16px",
                                 display: "flex",
                                 alignItems: "center",
                                 justifyContent: "center",
+                                flexDirection: 'column'
                             }}
                         >
-                            {downloadUrl && (
-                                <video
-                                    src={downloadUrl}
-                                    controls
-                                    style={{ width: "100%", height: "100%" }}
-                                />
-                            )}
+                            <Typography variant="h8" sx={{
+                                fontWeight: "bold",
+                                color: "#30448c"
+                                }}
+                            >
+                                Your file
+                            </Typography>
+                            <KeyboardArrowDown style={{color: '#30448c'}} />
+                            <video
+                                src={downloadUrl}
+                                controls
+                                style={{ width: "100%", height: "100%" }}
+                            />
                         </Box>
-                        {downloadUrl && (
+                        {showDownload && (
                             <Button
                                 variant="contained"
                                 onClick={handleDownload}
