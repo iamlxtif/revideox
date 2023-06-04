@@ -126,7 +126,7 @@ const Navbar = () => {
               </Button>
               <Button
                 color="inherit"
-                href="https://github.com/madani-anes-dev/pfe-ffmpeg"
+                href="https://github.com/iamlxtif/revideox"
                 target="_blank"
                 rel="noopener"
                 sx={{
