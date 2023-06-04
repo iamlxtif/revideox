@@ -31,7 +31,7 @@ const AudioSpeed = () => {
     const file = event.target.files[0];
     const isAudio = file.type.includes("audio");
     if (!isAudio) {
-      setShowError("Upload an audio file !");
+      setShowError("Please upload an audio file !");
     } else {
       const fileUrl = URL.createObjectURL(file);
       setSelectedFile(file);
@@ -46,7 +46,7 @@ const AudioSpeed = () => {
       const fileUrl = URL.createObjectURL(selectedFile);
       setDownloadUrl(fileUrl);
     }
-    if (!showError.includes("Upload")) {
+    if (!showError.includes("upload")) {
       setShowError("");
     }
   };
@@ -54,8 +54,8 @@ const AudioSpeed = () => {
   const handleAudioSpeed = () => {
     // Check if all inputs are selected
     if (!selectedFile || !selectedValue) {
-      if (!showError.includes("Upload")) {
-        setShowError("Fill all fields !");
+      if (!showError.includes("upload")) {
+        setShowError("Please ensure that all fields are filled");
       }
       return;
     }
