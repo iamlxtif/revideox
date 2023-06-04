@@ -13,6 +13,7 @@ import AudioSpeed from './components/AudioSpeed';
 import Convert from './components/Convert';
 import Tools from './components/Tools';
 import Reverse from './components/Reverse';
+import Compress from './components/Compress';
 
 
 export const ffmpeg = createFFmpeg({
@@ -22,15 +23,15 @@ export const ffmpeg = createFFmpeg({
 
 function App() {
 
-      const [switche, setSwicthe] = useState(false);
-      const load = async ()=>{
-        await ffmpeg.load();
-        setSwicthe(!switche);
-      }
-      
-      useEffect (()=>{
-        load();
-      },[]);
+  const [switche, setSwicthe] = useState(false);
+  const load = async ()=>{
+    await ffmpeg.load();
+    setSwicthe(!switche);
+  }
+  
+  useEffect (()=>{
+    load();
+  },[]);
     
 
   return (
@@ -61,6 +62,7 @@ function App() {
               <Route path='/convertToWebm' element={<Convert toFormat='vwebm'/>} />
               <Route path='/convertToAvi' element={<Convert toFormat='vavi'/>} />
               <Route path='/reverse' element={<Reverse />} />
+              <Route path='/compress' element={<Compress />} />
             </Routes>
           </Router>
         </>

@@ -1,13 +1,18 @@
 import { useState } from "react";
-import { AppBar, Toolbar, IconButton, Typography, Button, Box } from "@mui/material";
+import {
+  AppBar,
+  Toolbar,
+  IconButton,
+  Typography,
+  Button,
+  Box,
+} from "@mui/material";
 import { Link } from "react-router-dom";
-import MenuIcon from '@mui/icons-material/Menu';
+import MenuIcon from "@mui/icons-material/Menu";
 import styled from "styled-components";
-import GitHubIcon from '@mui/icons-material/GitHub';
+import GitHubIcon from "@mui/icons-material/GitHub";
 import Tools from "./Tools";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-
-
 
 const Logo = styled.img`
   margin-right: 10px;
@@ -34,58 +39,89 @@ const Navbar = () => {
   };
 
   return (
-    <Box sx={{ flexGrow: 1}}>
+    <Box sx={{ flexGrow: 1 }}>
       <AppBar position="fixed">
-        <Toolbar sx={{ display: "flex", justifyContent: "space-between", background: 'linear-gradient(90deg, rgba(48,68,140,1) 0%, rgba(4,78,188,1) 59%, rgba(4,142,192,1) 100%)' }}>
-          <Box sx={{display: "flex", alignItems: 'center'}}>
+        <Toolbar
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            background:
+              "linear-gradient(90deg, rgba(48,68,140,1) 0%, rgba(4,78,188,1) 59%, rgba(4,142,192,1) 100%)",
+          }}
+        >
+          <Box sx={{ display: "flex", alignItems: "center" }}>
             <Link to="/">
-              <Logo src="/src/assets/logo.svg" alt="Logo" style={{ height: 30 }}/>
+              <Logo
+                src="/src/assets/logo.svg"
+                alt="Logo"
+                style={{ height: 30 }}
+              />
             </Link>
-            <Button component={Link} to='/Tools'  color="inherit" sx={{
-              marginLeft: 1,
-              "&:hover" : {
-                backgroundColor: "rgba(255, 255, 255, 0.1)",
-                color: 'white',
-                transform: "scale(1.1)",
-                transition: "all 0.3s ease-in-outall 0.3s ease-in-out"
-              }
-            }}>
+            <Button
+              component={Link}
+              to="/Tools"
+              color="inherit"
+              sx={{
+                marginLeft: 1,
+                "&:hover": {
+                  backgroundColor: "rgba(255, 255, 255, 0.1)",
+                  color: "white",
+                  transform: "scale(1.1)",
+                  transition: "all 0.3s ease-in-outall 0.3s ease-in-out",
+                },
+              }}
+            >
               All Tools
             </Button>
           </Box>
           <Box>
             <Box sx={{ display: { sm: "flex", md: "flex", xs: "none" } }}>
-              <Button color="inherit" component={Link} to="/" sx={{
-                marginLeft: 1,
-                "&:hover" : {
-                  backgroundColor: "rgba(255, 255, 255, 0.1)",
-                  color: 'white',
-                  transform: "scale(1.1)",
-                  transition: "all 0.3s ease-in-outall 0.3s ease-in-out"
-                }
-              }}>
+              <Button
+                color="inherit"
+                component={Link}
+                to="/"
+                sx={{
+                  marginLeft: 1,
+                  "&:hover": {
+                    backgroundColor: "rgba(255, 255, 255, 0.1)",
+                    color: "white",
+                    transform: "scale(1.1)",
+                    transition: "all 0.3s ease-in-outall 0.3s ease-in-out",
+                  },
+                }}
+              >
                 Home
               </Button>
-              <Button color="inherit" component={Link} to="/about" sx={{
-                marginLeft: 1,
-                "&:hover" : {
-                  backgroundColor: "rgba(255, 255, 255, 0.1)",
-                  color: 'white',
-                  transform: "scale(1.1)",
-                  transition: "all 0.3s ease-in-outall 0.3s ease-in-out"
-                }
-              }}>
+              <Button
+                color="inherit"
+                component={Link}
+                to="/about"
+                sx={{
+                  marginLeft: 1,
+                  "&:hover": {
+                    backgroundColor: "rgba(255, 255, 255, 0.1)",
+                    color: "white",
+                    transform: "scale(1.1)",
+                    transition: "all 0.3s ease-in-outall 0.3s ease-in-out",
+                  },
+                }}
+              >
                 About
               </Button>
-              <Button color="inherit" component={Link} to="/contact" sx={{
-                marginLeft: 1,
-                "&:hover" : {
-                  backgroundColor: "rgba(255, 255, 255, 0.1)",
-                  color: 'white',
-                  transform: "scale(1.1)",
-                  transition: "all 0.3s ease-in-outall 0.3s ease-in-out"
-                }
-              }}>
+              <Button
+                color="inherit"
+                component={Link}
+                to="/contact"
+                sx={{
+                  marginLeft: 1,
+                  "&:hover": {
+                    backgroundColor: "rgba(255, 255, 255, 0.1)",
+                    color: "white",
+                    transform: "scale(1.1)",
+                    transition: "all 0.3s ease-in-outall 0.3s ease-in-out",
+                  },
+                }}
+              >
                 Contact
               </Button>
               <Button
@@ -95,12 +131,12 @@ const Navbar = () => {
                 rel="noopener"
                 sx={{
                   marginLeft: 1,
-                  "&:hover" : {
+                  "&:hover": {
                     backgroundColor: "rgba(255, 255, 255, 0.1)",
-                    color: 'white',
+                    color: "white",
                     transform: "scale(1.1)",
-                    transition: "all 0.3s ease-in-outall 0.3s ease-in-out"
-                  }
+                    transition: "all 0.3s ease-in-outall 0.3s ease-in-out",
+                  },
                 }}
               >
                 <GitHubIcon sx={{ margin: 0.5 }} alt="github" />
@@ -112,11 +148,15 @@ const Navbar = () => {
               edge="start"
               color="inherit"
               aria-label="menu"
-              sx={{ mr: 2, display: { sm: "none" } , "&:hover" : {
-                backgroundColor: "rgba(255, 255, 255, 0.1)",
-                transform: "scale(1.1)",
-                transition: "all 0.3s ease-in-outall 0.3s ease-in-out"
-            }}}
+              sx={{
+                mr: 2,
+                display: { sm: "none" },
+                "&:hover": {
+                  backgroundColor: "rgba(255, 255, 255, 0.1)",
+                  transform: "scale(1.1)",
+                  transition: "all 0.3s ease-in-outall 0.3s ease-in-out",
+                },
+              }}
               onClick={handleToggle}
             >
               <MenuIcon />
@@ -132,7 +172,8 @@ const Navbar = () => {
           left: 0,
           height: "100vh",
           width: "100vw",
-          background: 'linear-gradient(90deg, rgba(4,78,188,1) 0%, rgba(4,142,192,1) 100%)',
+          background:
+            "linear-gradient(90deg, rgba(4,78,188,1) 0%, rgba(4,142,192,1) 100%)",
           display: open ? "flex" : "none",
           flexDirection: "column",
           alignItems: "center",
@@ -147,9 +188,9 @@ const Navbar = () => {
           sx={{
             m: 1,
             width: "80%",
-            '&:hover':{
-              color: 'white'
-            }
+            "&:hover": {
+              color: "white",
+            },
           }}
           onClick={handleToggle}
         >
@@ -162,9 +203,9 @@ const Navbar = () => {
           sx={{
             m: 1,
             width: "80%",
-            '&:hover':{
-              color: 'white'
-            }
+            "&:hover": {
+              color: "white",
+            },
           }}
           onClick={handleToggle}
         >
@@ -177,9 +218,9 @@ const Navbar = () => {
           sx={{
             m: 1,
             width: "80%",
-            '&:hover':{
-              color: 'white'
-            }
+            "&:hover": {
+              color: "white",
+            },
           }}
           onClick={handleToggle}
         >
@@ -193,9 +234,9 @@ const Navbar = () => {
           sx={{
             m: 1,
             width: "80%",
-            '&:hover':{
-              color: 'white'
-            }
+            "&:hover": {
+              color: "white",
+            },
           }}
           onClick={handleToggle}
         >
