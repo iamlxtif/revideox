@@ -53,7 +53,7 @@ const Info = () => {
               color: '#30448c'
             }}
           >
-            RevideoX is the ultimate multimedia editing and conversion app. With a simple interface and powerful FFmpeg engine, it's the perfect tool for all your video, audio, and image needs.
+            RevideoX is the ultimate multimedia editing and conversion app. With a simple interface and powerful FFmpeg engine, it's the perfect tool for all your video and audio needs.
           </Typography>
         </Grid>
       </Grid>
