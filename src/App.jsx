@@ -14,6 +14,7 @@ import Convert from './components/Convert';
 import Tools from './components/Tools';
 import Reverse from './components/Reverse';
 import Compress from './components/Compress';
+import Rotate from './components/Rotate';
 
 
 export const ffmpeg = createFFmpeg({
@@ -62,7 +63,9 @@ function App() {
               <Route path='/convertToWebm' element={<Convert toFormat='vwebm'/>} />
               <Route path='/convertToAvi' element={<Convert toFormat='vavi'/>} />
               <Route path='/reverse' element={<Reverse />} />
-              <Route path='/compress' element={<Compress />} />
+              <Route path='/compressVideo' element={<Compress  fileType='video'/>} />
+              <Route path='/compressAudio' element={<Compress  fileType='audio'/>} />
+              <Route path='/rotate' element={<Rotate />} />
             </Routes>
           </Router>
         </>

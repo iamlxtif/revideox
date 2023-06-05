@@ -11,7 +11,7 @@ import {
 import { ffmpeg } from "../App";
 import { ErrorOutline } from "@mui/icons-material";
 
-const Compress = () => {
+const Compress = ({fileType}) => {
 
     const [selectedFile, setSelectedFile] = useState(null);
     const [downloadUrl, setDownloadUrl] = useState(null);
@@ -25,11 +25,13 @@ const Compress = () => {
         const file = event.target.files[0];
         if(file){
             const isVideo = file.type.includes('video');
-            if (!isVideo) {
-                setShowError('Upload a video file !');
-            }
-            else {
-                setSelectedFile(file);
+            const isAudio = file.type.includes("audio");
+            if (fileType == "video" && !isVideo) {
+              setShowError("Please upload a video file !");
+            } else if (fileType == "audio" && !isAudio) {
+              setShowError("Please upload an audio file !");
+            } else {
+              setSelectedFile(file);
             }
         }
     };
@@ -37,7 +39,11 @@ const Compress = () => {
     const handleCompressVideo = () => {
         // Check if all inputs are selected
         if (!selectedFile) {
-            setShowError('Upload a video file !');
+            if (fileType == "video") {
+                setShowError("Please upload a video file !");
+            } else if (fileType == "audio") {
+                setShowError("Please upload an audio file !");
+            }
             return;
         }
         setShowLoading(true);
@@ -54,24 +60,37 @@ const Compress = () => {
 
             ffmpeg.FS("writeFile", "input." + inputFormat, new Uint8Array(result));
 
-
-            await ffmpeg.run(
-                "-i",
-                "input." + inputFormat,
-                "-c:v",
-                "libx264",
-                "-crf",
-                "23",
-                "-c:a",
-                "copy",
-                "output." + inputFormat
-            );
+            if (fileType == 'video') {
+                await ffmpeg.run(
+                    "-i",
+                    "input." + inputFormat,
+                    "-c:v",
+                    "libx264",
+                    "-crf",
+                    "23",
+                    "-c:a",
+                    "copy",
+                    "output." + inputFormat
+                );
+            } else {
+                await ffmpeg.run(
+                    "-i",
+                    "input." + inputFormat,
+                    "-ab",
+                    "64k",
+                    "output." + inputFormat
+                );
+            }
 
 
             // Get the Compressed file as a Blob and create a download link for it
             const data = ffmpeg.FS("readFile", "output." + inputFormat);
             let blob = undefined;
-            blob = new Blob([data.buffer], { type: "video" });
+            if (fileType == "video") {
+                blob = new Blob([data.buffer], { type: "video" });
+            } else {
+                blob = new Blob([data.buffer], { type: "audio" });
+            }
             const url = URL.createObjectURL(blob);
             setDownloadUrl(url);
             setShowLoading(false);

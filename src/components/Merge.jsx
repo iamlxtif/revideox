@@ -49,7 +49,6 @@ const Merge = (props) => {
     }
     setShowLoading(true);
     let inputFormat = "";
-    let i = 1;
     for (const selectedFile of selectedFiles) {
       const reader = new FileReader();
       reader.readAsArrayBuffer(selectedFile);
@@ -63,17 +62,13 @@ const Merge = (props) => {
 
         ffmpeg.FS("writeFile", "input." + inputFormat, new Uint8Array(result));
       };
-      i++;
       await new Promise((resolve) => {
         reader.onloadend = resolve;
       });
     }
-    i = 0;
     const mergeCommands = selectedFiles.map((selectedFile, index) => {
       const inputFileName = selectedFile.name;
       inputFormat = inputFileName.substring(inputFileName.lastIndexOf(".") + 1);
-      i++;
-      console.log(i);
       return ["-i", "input." + inputFormat];
     });
     console.log(mergeCommands);
@@ -82,10 +77,11 @@ const Merge = (props) => {
       []
     );
     console.log(mergeOutput);
+    let x = (fileType == 'video') ? 1 : 0;
     await ffmpeg.run(
       ...mergeOutput,
       "-filter_complex",
-      `concat=n=${selectedFiles.length}:v=1:a=1`,
+      `concat=n=${selectedFiles.length}:v=`+x+`:a=1`,
       "output." + inputFormat
     );
 
@@ -119,7 +115,7 @@ const Merge = (props) => {
   };
 
   return (
-    <Container maxWidth="md">
+    <Container maxWidth="md" sx={{ padding: '100px 20px' }}>
       <Grid
         container
         spacing={2}
@@ -205,7 +201,11 @@ const Merge = (props) => {
           </Grid>
         </Grid>
         <Grid item md={6} sm={12} xs={12}>
-          <Grid item xs={12}>
+          <Grid item xs={12} sx={{
+            display: "flex",
+            alignItems: "center",
+            flexDirection: "column",
+          }}>
             <Box
               sx={{
                 width: "100%",

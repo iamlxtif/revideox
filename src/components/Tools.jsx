@@ -277,13 +277,13 @@ const videoTools = [
   {
     key: "3",
     name: "Rotate video",
-    path: "/trim",
+    path: "/rotate",
     icon: rotate,
   },
   {
     key: "4",
     name: "Compress video",
-    path: "/compress",
+    path: "/compressVideo",
     icon: compress,
   },
   {
@@ -309,9 +309,9 @@ const audioTools = [
   },
   {
     key: "7",
-    name: "Extract audio from video",
-    path: "/trim",
-    icon: VidAud,
+    name: "Compress audio",
+    path: "/compressAudio",
+    icon: compress,
   },
   {
     key: "8",

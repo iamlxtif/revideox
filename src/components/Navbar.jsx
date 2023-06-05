@@ -32,12 +32,6 @@ const Navbar = () => {
     setOpen(!open);
   };
 
-  const [showTools, setShowTools] = useState(false);
-
-  const toggleTools = () => {
-    setShowTools(!showTools);
-  };
-
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="fixed">
@@ -71,7 +65,7 @@ const Navbar = () => {
                 },
               }}
             >
-              All Tools
+              Tools
             </Button>
           </Box>
           <Box>
@@ -107,22 +101,6 @@ const Navbar = () => {
                 }}
               >
                 About
-              </Button>
-              <Button
-                color="inherit"
-                component={Link}
-                to="/contact"
-                sx={{
-                  marginLeft: 1,
-                  "&:hover": {
-                    backgroundColor: "rgba(255, 255, 255, 0.1)",
-                    color: "white",
-                    transform: "scale(1.1)",
-                    transition: "all 0.3s ease-in-outall 0.3s ease-in-out",
-                  },
-                }}
-              >
-                Contact
               </Button>
               <Button
                 color="inherit"
@@ -178,7 +156,7 @@ const Navbar = () => {
           flexDirection: "column",
           alignItems: "center",
           justifyContent: "center",
-          zIndex: "1",
+          zIndex: "3",
         }}
       >
         <Button
@@ -210,21 +188,6 @@ const Navbar = () => {
           onClick={handleToggle}
         >
           About
-        </Button>
-        <Button
-          color="inherit"
-          component={Link}
-          to="/contact"
-          sx={{
-            m: 1,
-            width: "80%",
-            "&:hover": {
-              color: "white",
-            },
-          }}
-          onClick={handleToggle}
-        >
-          Contact
         </Button>
         <Button
           color="inherit"

@@ -91,7 +91,7 @@ const Reverse = () => {
   };
 
   return (
-    <Container maxWidth="md">
+    <Container maxWidth="md" sx={{ padding: '100px 20px' }}>
       <Grid
         container
         spacing={2}
@@ -160,7 +160,11 @@ const Reverse = () => {
           </Grid>
         </Grid>
         <Grid item md={6} sm={12} xs={12}>
-          <Grid item xs={12}>
+          <Grid item xs={12} sx={{
+              display: "flex",
+              alignItems: "center",
+              flexDirection: "column",
+            }}>
             <Box
               sx={{
                 width: "100%",

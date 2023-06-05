@@ -6,20 +6,21 @@ import {
   TextField,
   Box,
   Typography,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
   CircularProgress,
 } from "@mui/material";
 import { ffmpeg } from "../App";
 import { ErrorOutline, KeyboardArrowDown } from "@mui/icons-material";
 
-const Trim = (props) => {
-  const { fileType } = props;
-
+const Rotate = () => {
   const [selectedFile, setSelectedFile] = useState("");
-  const [startPoint, setStartPoint] = useState(null);
-  const [duration, setDuration] = useState(null);
-  const [downloadUrl, setDownloadUrl] = useState("");
-  const [showLoading, setShowLoading] = useState(false);
+  const [selectedValue, setSelectedValue] = useState("");
+  const [downloadUrl, setDownloadUrl] = useState(null);
   const [showDownload, setShowDownload] = useState(false);
+  const [showLoading, setShowLoading] = useState(false);
   const [showError, setShowError] = useState("");
 
   const handleFileChange = (event) => {
@@ -28,12 +29,9 @@ const Trim = (props) => {
     setShowDownload(false);
     setShowError("");
     const file = event.target.files[0];
-    const isAudio = file.type.includes("audio");
     const isVideo = file.type.includes("video");
-    if (fileType == "video" && !isVideo) {
-      setShowError("Please upload a video file !");
-    } else if (fileType == "audio" && !isAudio) {
-      setShowError("Please upload an audio file !");
+    if (!isVideo) {
+      setShowError("Please upload an video file !");
     } else {
       const fileUrl = URL.createObjectURL(file);
       setSelectedFile(file);
@@ -41,8 +39,8 @@ const Trim = (props) => {
     }
   };
 
-  const handleStartPointChange = (event) => {
-    setStartPoint(event.target.value);
+  const handleDropdownChange = (event) => {
+    setSelectedValue(event.target.value);
     setShowDownload(false);
     if (showDownload) {
       const fileUrl = URL.createObjectURL(selectedFile);
@@ -53,21 +51,9 @@ const Trim = (props) => {
     }
   };
 
-  const handleDurationChange = (event) => {
-    setDuration(event.target.value);
-    setShowDownload(false);
-    if (showDownload) {
-      const fileUrl = URL.createObjectURL(selectedFile);
-      setDownloadUrl(fileUrl);
-    }
-    if (!showError.includes("upload")) {
-      setShowError("");
-    }
-  };
-
-  const handleTrimVideo = () => {
+  const handleRotate = () => {
     // Check if all inputs are selected
-    if (!selectedFile || !startPoint || !duration) {
+    if (!selectedFile || !selectedValue) {
       if (!showError.includes("upload")) {
         setShowError("Please ensure that all fields are filled");
       }
@@ -85,45 +71,26 @@ const Trim = (props) => {
         inputFileName.lastIndexOf(".") + 1
       );
 
+      console.log(inputFormat);
+
       ffmpeg.FS("writeFile", "input." + inputFormat, new Uint8Array(result));
 
-      if (fileType == "video") {
-        // Trim the video
-        await ffmpeg.run(
-          "-i",
-          "input." + inputFormat,
-          "-ss",
-          startPoint.toString(),
-          "-t",
-          duration.toString(),
-          "output." + inputFormat
-        );
-      } else {
-        await ffmpeg.run(
-          "-i",
-          "input." + inputFormat,
-          "-ss",
-          startPoint.toString(),
-          "-t",
-          duration.toString(),
-          "-c",
-          "copy",
-          "output." + inputFormat
-        );
-      }
+      await ffmpeg.run(
+        "-i",
+        "input." + inputFormat,
+        "-vf",
+        "transpose=" + selectedValue,
+        "output." + inputFormat
+      );
 
       // Get the trimmed video as a Blob and create a download link for it
       const data = ffmpeg.FS("readFile", "output." + inputFormat);
-      let blob = undefined;
-      if (fileType == "video") {
-        blob = new Blob([data.buffer], { type: "video" });
-      } else {
-        blob = new Blob([data.buffer], { type: "audio" });
-      }
+      const blob = new Blob([data.buffer], { type: "video" });
       const url = URL.createObjectURL(blob);
       setDownloadUrl(url);
-      setShowLoading(false);
       setShowDownload(true);
+      setShowLoading(false);
+
       // Clean up temporary files
       ffmpeg.FS("unlink", "input." + inputFormat);
       ffmpeg.FS("unlink", "output." + inputFormat);
@@ -137,7 +104,7 @@ const Trim = (props) => {
     let inputFormat = inputFileName.substring(
       inputFileName.lastIndexOf(".") + 1
     );
-    link.download = "trimmed." + inputFormat;
+    link.download = "rotated." + inputFormat;
     link.click();
   };
 
@@ -169,50 +136,41 @@ const Trim = (props) => {
                   color: "#30448c",
                 }}
               >
-                Trimming
+                Rotating video
               </Typography>
             </Grid>
             <Grid item xs={12}>
               <TextField type="file" onChange={handleFileChange} />
             </Grid>
             <Grid item xs={12}>
-              <TextField
-                label="Starting Point (in seconds)"
-                type="number"
-                onChange={handleStartPointChange}
-              />
+              <FormControl sx={{ width: "200px" }}>
+                <InputLabel id="dropdown-label">
+                  Select your option
+                </InputLabel>
+                <Select
+                  labelId="dropdown-label"
+                  id="dropdown"
+                  onChange={handleDropdownChange}
+                  value={selectedValue}
+                >
+                  <MenuItem value="0">Rotate by 90 degrees counterclockwise and flip vertically</MenuItem>
+                  <MenuItem value="1">Rotate by 90 degrees clockwise</MenuItem>
+                  <MenuItem value="2">Rotate by 90 degrees counterclockwise</MenuItem>
+                  <MenuItem value="3">Rotate by 90 degrees clockwise and flip vertically</MenuItem>
+                </Select>
+              </FormControl>
             </Grid>
             <Grid item xs={12}>
-              <TextField
-                label="Duration (in seconds)"
-                type="number"
-                onChange={handleDurationChange}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              {(fileType == "video" && (
-                <Button
-                  variant="contained"
-                  onClick={handleTrimVideo}
-                  sx={{
-                    backgroundColor: "#30448c",
-                    color: "white",
-                  }}
-                >
-                  Trim Video
-                </Button>
-              )) || (
-                <Button
-                  variant="contained"
-                  onClick={handleTrimVideo}
-                  sx={{
-                    backgroundColor: "#30448c",
-                    color: "white",
-                  }}
-                >
-                  Trim Audio
-                </Button>
-              )}
+              <Button
+                variant="contained"
+                onClick={handleRotate}
+                sx={{
+                  backgroundColor: "#30448c",
+                  color: "white",
+                }}
+              >
+                Rotate
+              </Button>
             </Grid>
             {showError && (
               <Grid
@@ -267,14 +225,11 @@ const Trim = (props) => {
                 Preview
               </Typography>
               <KeyboardArrowDown style={{ color: "#30448c" }} />
-              {(fileType == "video" && (
-                <video
-                  src={downloadUrl}
-                  controls
-                  style={{ width: "100%", height: "100%" }}
-                />
-              )) ||
-                (fileType == "audio" && <audio src={downloadUrl} controls />)}
+              <video
+                src={downloadUrl}
+                controls
+                style={{ width: "100%", height: "100%" }}
+              />
             </Box>
             {showDownload && (
               <Button
@@ -295,4 +250,4 @@ const Trim = (props) => {
   );
 };
 
-export default Trim;
+export default Rotate;

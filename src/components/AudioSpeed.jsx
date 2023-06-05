@@ -109,7 +109,7 @@ const AudioSpeed = () => {
   };
 
   return (
-    <Container maxWidth="md">
+    <Container maxWidth="md" sx={{ padding: '100px 20px' }}>
       <Grid
         container
         spacing={2}
