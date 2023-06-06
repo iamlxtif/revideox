@@ -10,6 +10,7 @@ import {
 import { Link } from "react-router-dom";
 import MenuIcon from "@mui/icons-material/Menu";
 import styled from "styled-components";
+import logo from '../assets/logo.svg'
 import GitHubIcon from "@mui/icons-material/GitHub";
 import Tools from "./Tools";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
@@ -46,7 +47,7 @@ const Navbar = () => {
           <Box sx={{ display: "flex", alignItems: "center" }}>
             <Link to="/">
               <Logo
-                src="/src/assets/logo.svg"
+                src={logo}
                 alt="Logo"
                 style={{ height: 30 }}
               />
