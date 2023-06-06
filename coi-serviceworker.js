@@ -90,7 +90,7 @@ if (typeof window === 'undefined') {
         }
 
         if (n.serviceWorker) {
-            const serviceWorkerURL = '/coi-serviceworker.js'; // Replace with the correct path to your service worker file
+            const serviceWorkerURL = '/revideox/coi-serviceworker.js'; // Replace with the correct path to your service worker file
           
             n.serviceWorker.register(serviceWorkerURL).then(
               (registration) => {
