@@ -5,12 +5,4 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   plugins: [react()],
   base: "/ffmpegapp/",
-  build: {
-    rollupOptions: {
-      input: {
-        main: 'src/main.jsx',
-        'coi-serviceworker': '/coi-serviceworker.js',
-      },
-    },
-  },
 })
