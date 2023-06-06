@@ -46,7 +46,7 @@ const Navbar = () => {
           <Box sx={{ display: "flex", alignItems: "center" }}>
             <Link to="/">
               <Logo
-                src="/src/assets/logo.png"
+                src="src/assets/logo.svg"
                 alt="Logo"
                 style={{ height: 30 }}
               />
